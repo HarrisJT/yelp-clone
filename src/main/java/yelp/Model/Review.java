@@ -1,4 +1,4 @@
-package yelp.Model;
+package yelp.model;
 
 import java.util.*;
 

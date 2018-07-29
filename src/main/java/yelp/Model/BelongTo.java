@@ -1,4 +1,4 @@
-package yelp.Model;
+package yelp.model;
 
 public class BelongTo {
     private String businessId;

@@ -1,4 +1,4 @@
-package yelp.Model;
+package yelp.model;
 
 import java.sql.Date;
 import java.util.*;
