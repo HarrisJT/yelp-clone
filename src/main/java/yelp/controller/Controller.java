@@ -1,4 +1,4 @@
-package main.java.yelp.controller;
+package yelp.controller;
 
 public class Controller {
 }
