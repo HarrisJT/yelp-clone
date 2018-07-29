@@ -1,70 +1,71 @@
 package yelp.model;
 
-import java.util.*;
+import java.util.Date;
 
 public class Review {
-    private String userId;
-    private String businessId;
-    private String text;
-    private int rating;
-    private Date date;
-    private int votes;
 
-    public Review(String userId, String businessId, String text, int rating, Date date, int votes) {
+  private String userId;
+  private String businessId;
+  private String text;
+  private int rating;
+  private Date date;
+  private int votes;
 
-        this.userId = userId;
-        this.businessId = businessId;
-        this.text = text;
-        this.rating = rating;
-        this.date = date;
-        this.votes = votes;
-    }
+  public Review(String userId, String businessId, String text, int rating, Date date, int votes) {
 
-    public String getUserId() {
-        return userId;
-    }
+    this.userId = userId;
+    this.businessId = businessId;
+    this.text = text;
+    this.rating = rating;
+    this.date = date;
+    this.votes = votes;
+  }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+  public String getUserId() {
+    return userId;
+  }
 
-    public String getBusinessId() {
-        return businessId;
-    }
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 
-    public void setBusinessId(String businessId) {
-        this.businessId = businessId;
-    }
+  public String getBusinessId() {
+    return businessId;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public void setBusinessId(String businessId) {
+    this.businessId = businessId;
+  }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    public int getRating() {
-        return rating;
-    }
+  public void setText(String text) {
+    this.text = text;
+  }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+  public int getRating() {
+    return rating;
+  }
 
-    public Date getDate() {
-        return date;
-    }
+  public void setRating(int rating) {
+    this.rating = rating;
+  }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public Date getDate() {
+    return date;
+  }
 
-    public int getVotes() {
-        return votes;
-    }
+  public void setDate(Date date) {
+    this.date = date;
+  }
 
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
+  public int getVotes() {
+    return votes;
+  }
+
+  public void setVotes(int votes) {
+    this.votes = votes;
+  }
 }

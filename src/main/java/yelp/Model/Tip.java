@@ -1,37 +1,38 @@
 package yelp.model;
 
 public class Tip {
-    private String userId;
-    private String businessId;
-    private String text;
 
-    public Tip(String userId, String businessId, String text) {
-        this.userId = userId;
-        this.businessId = businessId;
-        this.text = text;
-    }
+  private String userId;
+  private String businessId;
+  private String text;
 
-    public String getUserId() {
-        return userId;
-    }
+  public Tip(String userId, String businessId, String text) {
+    this.userId = userId;
+    this.businessId = businessId;
+    this.text = text;
+  }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+  public String getUserId() {
+    return userId;
+  }
 
-    public String getBusinessId() {
-        return businessId;
-    }
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
 
-    public void setBusinessId(String businessId) {
-        this.businessId = businessId;
-    }
+  public String getBusinessId() {
+    return businessId;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public void setBusinessId(String businessId) {
+    this.businessId = businessId;
+  }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
+  }
 }

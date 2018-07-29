@@ -16,6 +16,6 @@ dependencies {
 }
 
 task(runMain, dependsOn: 'classes', type: JavaExec) {
-    main = 'main.java.yelp.Client'
+    main = 'main.java.yelp.Main'
     classpath = sourceSets.main.runtimeClasspath
 }

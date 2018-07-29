@@ -1,47 +1,48 @@
 package yelp.model;
 
 public class PostalCode {
-    private String code;
-    private String neighborhood;
-    private String city;
-    private String state;
 
-    public PostalCode(String code, String neighborhood, String city, String state) {
-        this.code = code;
-        this.neighborhood = neighborhood;
-        this.city = city;
-        this.state = state;
-    }
+  private String code;
+  private String neighborhood;
+  private String city;
+  private String state;
 
-    public String getCode() {
-        return code;
-    }
+  public PostalCode(String code, String neighborhood, String city, String state) {
+    this.code = code;
+    this.neighborhood = neighborhood;
+    this.city = city;
+    this.state = state;
+  }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+  public String getCode() {
+    return code;
+  }
 
-    public String getNeighborhood() {
-        return neighborhood;
-    }
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-    }
+  public String getNeighborhood() {
+    return neighborhood;
+  }
 
-    public String getCity() {
-        return city;
-    }
+  public void setNeighborhood(String neighborhood) {
+    this.neighborhood = neighborhood;
+  }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+  public String getCity() {
+    return city;
+  }
 
-    public String getState() {
-        return state;
-    }
+  public void setCity(String city) {
+    this.city = city;
+  }
 
-    public void setState(String state) {
-        this.state = state;
-    }
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
 }
