@@ -1,53 +1,59 @@
 package yelp.utils;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.TreeMap;
+import javax.sql.DataSource;
+
 
 public class DatabaseManager {
-  private static final String connectionString = "jdbc:mysql://159.65.76.14:3306/revidi?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&relaxAutoCommit=true";
+
+  // private static final String connectionString = "jdbc:mysql://localhost:3306/revidi?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&relaxAutoCommit=true";
+  private static final String connectionString = "jdbc:mysql://159.65.76.14:3306/revidi";
   private static final String username = "root";
   private static final String password = "175d2d6cdeccdc088998b6b16cab40476e5fcbce414b4620";
-  private Connection connection = null;
+  private static DataSource dataSource;
 
-  /**
-   * Establish a connection to the database
-   *
-   * @return newly created connection
-   * @throws ClassNotFoundException
-   * @throws IllegalAccessException
-   * @throws InstantiationException
+
+  /*
+    Setup the database
    */
-  public Connection connect()
-      throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-    Class.forName("com.mysql.jdbc.Driver").newInstance();
+  static {
+    HikariConfig config = new HikariConfig();
+    config.setJdbcUrl("com.mysql.jdbc.Driver");
+    config.setJdbcUrl(connectionString);
+    config.setUsername(username);
+    config.setPassword(password);
 
-    try {
-      connection = DriverManager.getConnection(connectionString, username, password);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    // Required
+    config.addDataSourceProperty("autoReconnect", "true");
+    config.addDataSourceProperty("useUnicode", "true");
+    config.addDataSourceProperty("characterEncoding", "UTF-8");
+    config.addDataSourceProperty("allowMultiQueries", "true");
+    config.addDataSourceProperty("useSSL", "false");
 
-    return connection;
+    // Optimization
+    config.addDataSourceProperty("cachePrepStmts", "true");
+    config.addDataSourceProperty("prepStmtCacheSize", "250");
+    config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+    // config.setConnectionTimeout(8000); // not sure we need yet
+    // config.setAutoCommit(true);
+
+    dataSource = new HikariDataSource(config);
   }
 
-  /**
-   * Closes the connection if it exists.
-   *
-   * (note) always close the connection after use.
-   */
-  public void closeConnection() {
-    if (connection != null) {
-      try {
-        connection.close();
-      } catch (Exception e) {
-        System.out.println(e.toString());
-      }
-    }
+  public static DataSource getDataSource() {
+    return dataSource;
+  }
+
+  public static Connection getConnection() throws SQLException {
+    return dataSource.getConnection();
   }
 
   /**
@@ -57,27 +63,55 @@ public class DatabaseManager {
    * @param selectQuery the query
    * @return the result of the query operation
    */
-  public TreeMap<String, HashMap<String, String>> select(Connection connection, String selectQuery) {
+  public static TreeMap<String, HashMap<String, String>> select(Connection connection,
+      String selectQuery) {
     TreeMap<String, HashMap<String, String>> selectResult = new TreeMap<>();
-    String[] keys = selectQuery.replace(" ", "").replace("SELECT", "").split("FROM")[0].split(",");
+    String[] attributes = selectQuery.replace(" ", "").replace("SELECT", "").split("FROM")[0]
+        .split(",");
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
 
     try {
-      PreparedStatement stmt = connection.prepareStatement(selectQuery);
-      ResultSet rs = stmt.executeQuery();
+      stmt = connection.prepareStatement(selectQuery);
+      rs = stmt.executeQuery();
       while (rs.next()) {
         HashMap<String, String> eachResult = new HashMap<>();
-        for (int i = 1; i < keys.length; i++) {
-          eachResult.put(keys[i], rs.getString(i + 1));
+        for (int column = 1; column < attributes.length; column++) {
+          eachResult.put(attributes[column], rs.getString(column + 1));
         }
         selectResult.put(rs.getString(1), eachResult);
       }
 
     } catch (SQLException sqlExc) {
       System.out.println(sqlExc.getMessage());
+    } finally {
+      try {
+        closeAll(stmt, rs, connection);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
 
     return selectResult;
   }
 
+  /**
+   * Closes all database connection Should only be called after operations done
+   *
+   * @param ps PreparedStatement
+   * @param rs ResultSet
+   * @param conn Connection
+   */
+  public static void closeAll(PreparedStatement ps, ResultSet rs, Connection conn)
+      throws SQLException {
+    if (ps != null) {
+      ps.close();
+    }
 
+    if (rs != null) {
+      rs.close();
+    }
+
+    conn.close();
+  }
 }
