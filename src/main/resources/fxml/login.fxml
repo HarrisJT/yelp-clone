@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+  xmlns="http://javafx.com/javafx/8.0.121">
+  <children>
+    <GridPane prefHeight="400.0" prefWidth="600.0">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <children>
+        <VBox GridPane.rowIndex="1" prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              prefHeight="35.0" prefWidth="400.0" promptText="Username">
+              <VBox.margin>
+                <Insets left="100.0" top="15.0"/>
+              </VBox.margin>
+            </TextField>
+            <PasswordField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              prefHeight="35.0" prefWidth="400.0" promptText="Password">
+              <VBox.margin>
+                <Insets left="100.0" top="20.0"/>
+              </VBox.margin>
+            </PasswordField>
+          </children>
+        </VBox>
+        <Text layoutX="10.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In"
+          textAlignment="CENTER" wrappingWidth="600.0">
+          <font>
+            <Font size="38.0"/>
+          </font>
+        </Text>
+        <GridPane GridPane.rowIndex="2">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+          </rowConstraints>
+          <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Sign Up">
+              <cursor>
+                <Cursor fx:constant="HAND"/>
+              </cursor>
+              <GridPane.margin>
+                <Insets left="100.0"/>
+              </GridPane.margin>
+            </Button>
+            <Button GridPane.columnIndex="1" mnemonicParsing="false" prefHeight="50.0"
+              prefWidth="100.0"
+              text="Log In">
+              <cursor>
+                <Cursor fx:constant="HAND"/>
+              </cursor>
+              <GridPane.margin>
+                <Insets left="100.0"/>
+              </GridPane.margin>
+            </Button>
+          </children>
+        </GridPane>
+      </children>
+    </GridPane>
+  </children>
+</AnchorPane>

@@ -1,15 +1,27 @@
 package yelp.utils;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class SceneManager {
 
+  private static final ExecutorService threadPool = Executors.newCachedThreadPool();
   private static SceneManager instance = null;
+  /**
+   * The logger.
+   */
+  private final Logger logger = Logger.getLogger(getClass().getName());
 
   public static SceneManager getInstance() {
     if (instance == null) {
@@ -18,15 +30,73 @@ public class SceneManager {
     return instance;
   }
 
-  public Object loadScene(Object currentController, String resourceName, Node root)
-      throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(
-        currentController.getClass().getResource(String.format("/templates/%s.fxml", resourceName)));
-    Parent anchor = fxmlLoader.load();
+  public void loadAndSwitchToFXML(String labelText, Object currentController, String resourceName,
+      Pane root) {
 
-    Scene scene = new Scene(anchor);
-    ((Stage) (root.getScene().getWindow())).setScene(scene);
+    StackPane stack = new StackPane();
 
-    return fxmlLoader.getController();
+    ProgressBar indicator = new ProgressBar();
+    indicator.setPrefWidth(350);
+    indicator.setVisible(false);
+
+    Label label = new Label();
+    label.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+    label.setAlignment(Pos.CENTER);
+    label.setStyle("-fx-font-weight:bold; -fx-text-fill: #202020; -fx-font-size:10;");
+    label.setText(labelText);
+
+    stack.getChildren().addAll(indicator, label);
+    stack.setManaged(false);
+    stack.setVisible(false);
+
+    indicator.visibleProperty().addListener(e -> {
+      if (indicator.isVisible()) {
+        stack.setManaged(true);
+        stack.setVisible(true);
+      } else {
+        stack.setManaged(false);
+        stack.setVisible(false);
+      }
+    });
+
+    // doesn't currently do anything as it centers to a frame as big as itself.
+    stack.setAlignment(Pos.CENTER);
+    root.getChildren().add(stack);
+
+    Task<Pane> jfxTask = new Task<Pane>() {
+      @Override
+      protected Pane call() throws IOException {
+        updateMessage("Loading...");
+
+        new Thread(() -> {
+          Platform.runLater(() -> indicator.progressProperty().bind(this.progressProperty()));
+          indicator.setVisible(true);
+        }).start();
+
+        try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(
+            currentController.getClass().getResource(String.format("/fxml/%s.fxml", resourceName)));
+
+        return fxmlLoader.load();
+      }
+    };
+
+    jfxTask.setOnSucceeded(event -> {
+      root.getChildren().clear();
+      root.getChildren().add(jfxTask.getValue());
+    });
+
+    jfxTask.setOnFailed(event -> {
+      root.getChildren().clear();
+      logger.log(Level.SEVERE, "", jfxTask.getException());
+      logger.log(Level.SEVERE, "", event);
+    });
+
+    threadPool.execute(jfxTask);
   }
 }

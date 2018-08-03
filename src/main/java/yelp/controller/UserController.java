@@ -8,6 +8,7 @@ import java.util.TreeMap;
 import yelp.utils.DatabaseManager;
 
 public class UserController {
+
   /**
    * Gets all users from database that meet the "name pattern" condition
    *
@@ -16,7 +17,8 @@ public class UserController {
    */
   public TreeMap<String, HashMap<String, String>> getUsers(String namePattern) {
     TreeMap<String, HashMap<String, String>> users = new TreeMap<>();
-    String selectUsers = String.format("SELECT id, name, startDate FROM USERS WHERE name LIKE '%%%s%%'", namePattern);
+    String selectUsers = String
+        .format("SELECT id, name, startDate FROM USERS WHERE name LIKE '%%%s%%'", namePattern);
 
     try {
       users = DatabaseManager.select(DatabaseManager.getConnection(), selectUsers);
@@ -30,11 +32,12 @@ public class UserController {
   /**
    * Insert new user into the table
    *
-   * @param id, name, startDate
-   * TODO: add password attribute?
+   * @param id, name, startDate TODO: add password attribute?
    */
-  public void addUser (String id, String name, String startDate) {
-    String addUser = String.format("insert into user (id, name, start_date) values (%s, %s, %s);", id, name, startDate);
+  public void addUser(String id, String name, String startDate) {
+    String addUser = String
+        .format("insert into user (id, name, start_date) values (%s, %s, %s);", id, name,
+            startDate);
 
     try {
       Connection conn = DatabaseManager.getConnection();

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0"
+  xmlns="http://javafx.com/javafx">
+  <HBox prefHeight="237.0" prefWidth="600.0">
+    <children>
+      <VBox prefHeight="200.0" prefWidth="150.0">
+        <children>
+          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+              <Image url="@../static/icons8-food-100.png"/>
+            </image>
+            <VBox.margin>
+              <Insets left="25.0" top="10.0"/>
+            </VBox.margin>
+            <viewport>
+              <Rectangle2D/>
+            </viewport>
+            <cursor>
+              <Cursor fx:constant="HAND"/>
+            </cursor>
+          </ImageView>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Food" textAlignment="CENTER"
+            wrappingWidth="150.0">
+            <VBox.margin>
+              <Insets top="20.0"/>
+            </VBox.margin>
+          </Text>
+        </children>
+        <padding>
+          <Insets top="50.0"/>
+        </padding>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="150.0">
+        <children>
+          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+              <Image url="@../static/icons8-theatre-mask-100.png"/>
+            </image>
+            <VBox.margin>
+              <Insets left="25.0" top="10.0"/>
+            </VBox.margin>
+            <cursor>
+              <Cursor fx:constant="HAND"/>
+            </cursor>
+          </ImageView>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Entertain" textAlignment="CENTER"
+            wrappingWidth="150.0">
+            <VBox.margin>
+              <Insets top="20.0"/>
+            </VBox.margin>
+          </Text>
+        </children>
+        <padding>
+          <Insets top="50.0"/>
+        </padding>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="150.0">
+        <children>
+          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+              <Image url="@../static/icons8-house-100.png"/>
+            </image>
+            <VBox.margin>
+              <Insets left="25.0" top="10.0"/>
+            </VBox.margin>
+            <cursor>
+              <Cursor fx:constant="HAND"/>
+            </cursor>
+          </ImageView>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lifestyle" textAlignment="CENTER"
+            wrappingWidth="150.0">
+            <VBox.margin>
+              <Insets top="20.0"/>
+            </VBox.margin>
+          </Text>
+        </children>
+        <padding>
+          <Insets top="50.0"/>
+        </padding>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="150.0">
+        <children>
+          <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+              <Image url="@../static/icons8-holiday-100.png"/>
+            </image>
+            <VBox.margin>
+              <Insets left="25.0" top="10.0"/>
+            </VBox.margin>
+          </ImageView>
+          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Travel" textAlignment="CENTER"
+            wrappingWidth="150.0">
+            <VBox.margin>
+              <Insets top="20.0"/>
+            </VBox.margin>
+          </Text>
+        </children>
+        <padding>
+          <Insets top="50.0"/>
+        </padding>
+      </VBox>
+    </children>
+  </HBox>
+</AnchorPane>

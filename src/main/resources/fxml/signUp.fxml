@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-  xmlns="http://javafx.com/javafx/8.0.121" fx:controller="main.resources.templates.Login">
+  xmlns="http://javafx.com/javafx/8.0.121">
   <children>
     <GridPane prefHeight="400.0" prefWidth="600.0">
       <columnConstraints>
@@ -21,33 +21,40 @@
       </columnConstraints>
       <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="165.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="101.0" vgrow="SOMETIMES"/>
       </rowConstraints>
       <children>
-        <VBox GridPane.rowIndex="1" prefHeight="200.0" prefWidth="100.0">
+        <VBox GridPane.rowIndex="1" prefHeight="147.0" prefWidth="600.0">
           <children>
             <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-              prefHeight="35.0" prefWidth="400.0" promptText="Username">
+              prefHeight="35.0" prefWidth="400.0" promptText="username">
               <VBox.margin>
-                <Insets left="100.0" top="15.0"/>
+                <Insets left="100.0" top="10.0"/>
               </VBox.margin>
             </TextField>
             <PasswordField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-              prefHeight="35.0" prefWidth="400.0" promptText="Password">
+              prefHeight="35.0" prefWidth="400.0" promptText="password">
               <VBox.margin>
-                <Insets left="100.0" top="20.0"/>
+                <Insets left="100.0" top="15.0"/>
+              </VBox.margin>
+            </PasswordField>
+            <PasswordField layoutX="110.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity"
+              minHeight="-Infinity" prefHeight="35.0" prefWidth="400.0"
+              promptText="verify password">
+              <VBox.margin>
+                <Insets left="100.0" top="10.0"/>
               </VBox.margin>
             </PasswordField>
           </children>
         </VBox>
-        <Text layoutX="10.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In"
+        <Text layoutX="10.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up"
           textAlignment="CENTER" wrappingWidth="600.0">
           <font>
             <Font size="38.0"/>
           </font>
         </Text>
-        <GridPane GridPane.rowIndex="2">
+        <GridPane GridPane.rowIndex="2" prefHeight="102.0" prefWidth="600.0">
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -57,7 +64,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
           </rowConstraints>
           <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Log in">
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Log In">
               <cursor>
                 <Cursor fx:constant="HAND"/>
               </cursor>
@@ -65,7 +72,8 @@
                 <Insets left="100.0"/>
               </GridPane.margin>
             </Button>
-            <Button GridPane.columnIndex="1" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0"
+            <Button GridPane.columnIndex="1" mnemonicParsing="false" prefHeight="50.0"
+              prefWidth="100.0"
               text="Sign up">
               <cursor>
                 <Cursor fx:constant="HAND"/>
