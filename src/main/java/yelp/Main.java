@@ -31,7 +31,7 @@ public class Main extends Application {
     root.setCenter(new ClientController());
 
     //Scene
-    Scene scene = new Scene(root, visualScreenWidth * .8, visualScreenHeight * .8);
+    Scene scene = new Scene(root, visualScreenWidth * 0.8, visualScreenHeight * 0.8);
 
     primaryStage.setTitle("Revidi - Yelp Clone");
     primaryStage.setScene(scene);

@@ -18,12 +18,18 @@
   <BorderPane fx:id="borderPane">
     <top>
       <VBox style="-fx-border-width: 0 0 1 0; -fx-border-color: #202020;"
-        BorderPane.alignment="CENTER" alignment="CENTER" spacing="5.0">
-        <HBox VBox.vgrow="ALWAYS" alignment="CENTER" prefHeight="45.0">
+        BorderPane.alignment="CENTER"
+        alignment="CENTER">
+        <HBox VBox.vgrow="ALWAYS" alignment="CENTER" prefHeight="40.0">
+          <Button mnemonicParsing="false" text="Home" fx:id="homeButton">
+            <HBox.margin>
+              <Insets right="15.0"/>
+            </HBox.margin>
+          </Button>
           <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
             promptText="Search..." fx:id="searchBar"/>
-          <Button style="-fx-background-radius: 0 3 3 0;" mnemonicParsing="false" text="Search"
-            fx:id="searchButton">
+          <Button style="-fx-background-radius: 0 3 3 0;" mnemonicParsing="false"
+            text="Search" fx:id="searchButton">
             <tooltip>
               <Tooltip text="Search"/>
             </tooltip>
@@ -33,22 +39,25 @@
           </Button>
           <MenuButton mnemonicParsing="false" text="My Account">
             <items>
-              <MenuItem mnemonicParsing="false" text="Login" fx:id="loginButton"/>
-              <MenuItem mnemonicParsing="false" text="Sign Up" fx:id="signUpButton"/>
+              <MenuItem mnemonicParsing="false" text="Login" fx:id="menuLoginButton"/>
+              <MenuItem mnemonicParsing="false" text="Sign Up" fx:id="menuSignUpButton"/>
             </items>
+            <HBox.margin>
+              <Insets left="15.0"/>
+            </HBox.margin>
           </MenuButton>
         </HBox>
         <padding>
-          <Insets bottom="3.0" left="5.0" right="5.0"/>
+          <Insets bottom="3.0" left="10.0" right="10.0"/>
         </padding>
       </VBox>
     </top>
     <center>
-      <ScrollPane BorderPane.alignment="CENTER" fitToHeight="true" fitToWidth="true"
-        hbarPolicy="NEVER" styleClass="edge-to-edge">
+      <ScrollPane BorderPane.alignment="CENTER" cache="true" cacheHint="SPEED" fitToHeight="true"
+        fitToWidth="true" hbarPolicy="NEVER" styleClass="edge-to-edge">
         <AnchorPane minHeight="0.0" minWidth="0.0" fx:id="anchorPane"/>
         <padding>
-          <Insets left="5.0" right="5.0" top="5.0"/>
+          <Insets left="10.0" right="10.0" top="5.0"/>
         </padding>
       </ScrollPane>
     </center>

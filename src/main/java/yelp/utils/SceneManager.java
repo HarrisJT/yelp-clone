@@ -30,8 +30,7 @@ public class SceneManager {
     return instance;
   }
 
-  public void loadAndSwitchToFXML(String labelText, Object currentController, String resourceName,
-      Pane root) {
+  public void loadAndSwitchToFXML(Object currentController, String resourceName, Pane root) {
 
     StackPane stack = new StackPane();
 
@@ -43,7 +42,7 @@ public class SceneManager {
     label.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     label.setAlignment(Pos.CENTER);
     label.setStyle("-fx-font-weight:bold; -fx-text-fill: #202020; -fx-font-size:10;");
-    label.setText(labelText);
+    label.setText("Loading...");
 
     stack.getChildren().addAll(indicator, label);
     stack.setManaged(false);
@@ -66,18 +65,17 @@ public class SceneManager {
     Task<Pane> jfxTask = new Task<Pane>() {
       @Override
       protected Pane call() throws IOException {
-        updateMessage("Loading...");
-
         new Thread(() -> {
           Platform.runLater(() -> indicator.progressProperty().bind(this.progressProperty()));
           indicator.setVisible(true);
         }).start();
 
-        try {
-          Thread.sleep(2000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
+        // remove after testing
+//        try {
+//          Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//          e.printStackTrace();
+//        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(
             currentController.getClass().getResource(String.format("/fxml/%s.fxml", resourceName)));

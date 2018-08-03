@@ -3,6 +3,7 @@ package yelp.ui;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -36,9 +37,11 @@ public class ClientController extends StackPane {
   @FXML
   private Button searchButton;
   @FXML
-  private MenuItem loginButton;
+  private Button homeButton;
   @FXML
-  private MenuItem signUpButton;
+  private MenuItem menuLoginButton;
+  @FXML
+  private MenuItem menuSignUpButton;
 
   public ClientController() {
     // ---- FXML LOADER ----
@@ -52,7 +55,9 @@ public class ClientController extends StackPane {
       logger.log(Level.SEVERE, "", ex);
     }
 
-    anchorPane.prefWidthProperty().bind(borderPane.widthProperty());
+    // Load the home screen
+    SceneManager.getInstance()
+        .loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
   }
 
   /**
@@ -60,15 +65,40 @@ public class ClientController extends StackPane {
    */
   @FXML
   private void initialize() {
-    logger.log(Level.INFO, "ClientController Initialize");
+    logger.log(Level.INFO, "ClientController Initialized");
 
-    loginButton.setOnAction(a -> SceneManager.getInstance()
-        .loadAndSwitchToFXML("Loading...", loader.getController(), "login", anchorPane));
-    signUpButton.setOnAction(a -> SceneManager.getInstance()
-        .loadAndSwitchToFXML("Loading...", loader.getController(), "signUp", anchorPane));
+    // Search Bar
+    searchBar.setOnAction(a -> loadResults(searchBar.getText()));
 
-    SceneManager.getInstance()
-        .loadAndSwitchToFXML("Loading...", loader.getController(), "home", anchorPane);
+    searchBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        Platform.runLater(() -> searchBar.selectAll());
+      }
+    });
+
+    //Search Button
+    searchButton.setOnAction(searchBar.getOnAction());
+
+    // Home Button
+    homeButton.setOnAction(a -> SceneManager.getInstance()
+        .loadAndSwitchToFXML(loader.getController(), "home", anchorPane));
+
+    // Account Settings Menu
+    menuLoginButton.setOnAction(a -> SceneManager.getInstance()
+        .loadAndSwitchToFXML(loader.getController(), "login", anchorPane));
+    menuSignUpButton.setOnAction(a -> SceneManager.getInstance()
+        .loadAndSwitchToFXML(loader.getController(), "signUp", anchorPane));
+  }
+
+  private void loadResults(String searchText) {
+    new Thread(() -> {
+
+      // TODO: Load FXML
+//      Platform.runLater(() -> SceneManager.getInstance()
+//          .loadAndSwitchToFXML(loader.getController(), "searchResults", anchorPane));
+
+      // TODO: GET SQL RESULT OF BUSINESS NAMES HERE
+    }).start();
   }
 
 }
