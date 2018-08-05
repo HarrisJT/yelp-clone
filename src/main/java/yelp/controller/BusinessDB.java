@@ -9,7 +9,7 @@ import java.util.Objects;
 import yelp.model.Business;
 import yelp.utils.DatabaseManager;
 
-public class BusinessController {
+public class BusinessDB {
 
   /**
    * Gets all users from database that meet the "name pattern" condition

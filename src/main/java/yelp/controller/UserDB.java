@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import yelp.utils.DatabaseManager;
 
-public class UserController {
+public class UserDB {
 
   /**
    * Gets all users from database that meet the "name pattern" condition
