@@ -11,13 +11,14 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import yelp.controller.BusinessController;
+import yelp.controller.BusinessDB;
 import yelp.model.Business;
 import yelp.utils.SceneManager;
 
@@ -28,8 +29,8 @@ public class ClientController extends StackPane {
   private final Logger logger = Logger.getLogger(getClass().getName());
 
   private FXMLLoader loader;
-  private SceneManager sceneManager = null;
-  // java.util.concurrent.Executor typically provides a pool of threads...
+  private SceneManager sceneManager;
+  // java.util.concurrent.Executor typically provides a pool of threads
   private Executor threadPool;
 
   // ---- FXML  ----
@@ -39,6 +40,16 @@ public class ClientController extends StackPane {
   private AnchorPane anchorPane;
   @FXML
   private ProgressIndicator progressIndicator;
+
+  @FXML
+  private ComboBox<String> searchFieldComboBox;
+
+  @FXML
+  private TextField categorySearchBar;
+
+  @FXML
+  private TextField areaSearchBar;
+
   @FXML
   private TextField searchBar;
   @FXML
@@ -83,7 +94,7 @@ public class ClientController extends StackPane {
 
 
     // Search Bar
-    searchBar.setOnAction(a -> loadResults(searchBar.getText()));
+    searchBar.setOnAction(a -> loadResults(searchBar.getText(), searchFieldComboBox.getValue()));
 
     searchBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue) {
@@ -93,6 +104,12 @@ public class ClientController extends StackPane {
 
     //Search Button
     searchButton.setOnAction(searchBar.getOnAction());
+
+    searchFieldComboBox.setOnAction(a -> {
+      if (searchFieldComboBox.getValue().equals("Add multiple search parameters")) {
+        logger.log(Level.INFO, "Added");
+      }
+    });
 
     // Home Button
     homeButton.setOnAction(a -> {
@@ -120,11 +137,11 @@ public class ClientController extends StackPane {
     });
   }
 
-  private void loadResults(final String searchText) {
+  private void loadResults(final String searchText, final String searchFieldComboBox) {
     Task<ArrayList<Business>> businessSearchTask = new Task<ArrayList<Business>>() {
       @Override
       public ArrayList<Business> call() throws Exception {
-        return BusinessController.getBusinessByName(searchText);
+        return BusinessDB.getBusinessByName(searchText);
       }
     };
 
