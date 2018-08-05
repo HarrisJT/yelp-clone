@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0"
-  xmlns="http://javafx.com/javafx">
+  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+  AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx">
   <HBox prefHeight="237.0" prefWidth="600.0">
     <children>
       <VBox prefHeight="200.0" prefWidth="150.0">

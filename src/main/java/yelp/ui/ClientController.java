@@ -1,9 +1,13 @@
 package yelp.ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -13,10 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import yelp.controller.BusinessController;
+import yelp.model.Business;
 import yelp.utils.SceneManager;
 
 public class ClientController extends StackPane {
-
   /**
    * The logger.
    */
@@ -24,6 +29,8 @@ public class ClientController extends StackPane {
 
   private FXMLLoader loader;
   private SceneManager sceneManager = null;
+  // java.util.concurrent.Executor typically provides a pool of threads...
+  private Executor threadPool;
 
   // ---- FXML  ----
   @FXML
@@ -44,6 +51,15 @@ public class ClientController extends StackPane {
   private MenuItem menuSignUpButton;
 
   public ClientController() {
+    sceneManager = new SceneManager();
+
+    // create executor that uses daemon threads:
+    threadPool = Executors.newCachedThreadPool(runnable -> {
+      Thread t = new Thread(runnable);
+      t.setDaemon(true);
+      return t;
+    });
+
     // ---- FXML LOADER ----
     loader = new FXMLLoader(getClass().getResource("/fxml/templates/client.fxml"));
     loader.setController(this);
@@ -51,13 +67,11 @@ public class ClientController extends StackPane {
 
     try {
       loader.load();
+      // Load the home screen
+      sceneManager.loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
     } catch (IOException ex) {
       logger.log(Level.SEVERE, "", ex);
     }
-
-    // Load the home screen
-    SceneManager.getInstance()
-        .loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
   }
 
   /**
@@ -66,6 +80,7 @@ public class ClientController extends StackPane {
   @FXML
   private void initialize() {
     logger.log(Level.INFO, "ClientController Initialized");
+
 
     // Search Bar
     searchBar.setOnAction(a -> loadResults(searchBar.getText()));
@@ -80,25 +95,55 @@ public class ClientController extends StackPane {
     searchButton.setOnAction(searchBar.getOnAction());
 
     // Home Button
-    homeButton.setOnAction(a -> SceneManager.getInstance()
-        .loadAndSwitchToFXML(loader.getController(), "home", anchorPane));
+    homeButton.setOnAction(a -> {
+      try {
+        sceneManager.loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
 
     // Account Settings Menu
-    menuLoginButton.setOnAction(a -> SceneManager.getInstance()
-        .loadAndSwitchToFXML(loader.getController(), "login", anchorPane));
-    menuSignUpButton.setOnAction(a -> SceneManager.getInstance()
-        .loadAndSwitchToFXML(loader.getController(), "signUp", anchorPane));
+    menuLoginButton.setOnAction(a -> {
+      try {
+        sceneManager.loadAndSwitchToFXML(loader.getController(), "login", anchorPane);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
+    menuSignUpButton.setOnAction(a -> {
+      try {
+        sceneManager.loadAndSwitchToFXML(loader.getController(), "signUp", anchorPane);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
   }
 
-  private void loadResults(String searchText) {
-    new Thread(() -> {
+  private void loadResults(final String searchText) {
+    Task<ArrayList<Business>> businessSearchTask = new Task<ArrayList<Business>>() {
+      @Override
+      public ArrayList<Business> call() throws Exception {
+        return BusinessController.getBusinessByName(searchText);
+      }
+    };
 
-      // TODO: Load FXML
-//      Platform.runLater(() -> SceneManager.getInstance()
-//          .loadAndSwitchToFXML(loader.getController(), "searchResults", anchorPane));
+    businessSearchTask.setOnSucceeded(e -> {
+      SearchResultsController searchResultsController = new SearchResultsController(searchText,
+          businessSearchTask.getValue());
 
-      // TODO: GET SQL RESULT OF BUSINESS NAMES HERE
-    }).start();
+      FXMLLoader searchResultsLoader = new FXMLLoader();
+      searchResultsLoader.setController(searchResultsController);
+      searchResultsLoader.setLocation(getClass().getResource("/fxml/searchResults.fxml"));
+
+      anchorPane.getChildren().clear();
+      try {
+        anchorPane.getChildren().add(searchResultsLoader.load());
+      } catch (IOException ex) {
+        ex.printStackTrace();
+      }
+    });
+
+    threadPool.execute(businessSearchTask);
   }
-
 }

@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.TreeMap;
 import javax.sql.DataSource;
 
 
@@ -25,7 +23,6 @@ public class DatabaseManager {
    */
   static {
     HikariConfig config = new HikariConfig();
-    config.setJdbcUrl("com.mysql.jdbc.Driver");
     config.setJdbcUrl(connectionString);
     config.setUsername(username);
     config.setPassword(password);
@@ -33,7 +30,7 @@ public class DatabaseManager {
     // Required
     config.addDataSourceProperty("autoReconnect", "true");
     config.addDataSourceProperty("useUnicode", "true");
-    config.addDataSourceProperty("characterEncoding", "UTF-8");
+    //config.addDataSourceProperty("characterEncoding", "UTF-8");
     config.addDataSourceProperty("allowMultiQueries", "true");
     config.addDataSourceProperty("useSSL", "false");
 
@@ -41,9 +38,13 @@ public class DatabaseManager {
     config.addDataSourceProperty("cachePrepStmts", "true");
     config.addDataSourceProperty("prepStmtCacheSize", "250");
     config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-
-    // config.setConnectionTimeout(8000); // not sure we need yet
-    // config.setAutoCommit(true);
+    config.addDataSourceProperty("useServerPrepStmts", "true");
+    config.addDataSourceProperty("useLocalSessionState", "true");
+    config.addDataSourceProperty("rewriteBatchedStatements", "true");
+    config.addDataSourceProperty("cacheResultSetMetadata", "true");
+    config.addDataSourceProperty("cacheServerConfiguration", "true");
+    config.addDataSourceProperty("elideSetAutoCommits", "true");
+    config.addDataSourceProperty("maintainTimeStats", "false");
 
     dataSource = new HikariDataSource(config);
   }
@@ -54,45 +55,6 @@ public class DatabaseManager {
 
   public static Connection getConnection() throws SQLException {
     return dataSource.getConnection();
-  }
-
-  /**
-   * Generic method for SQL "SELECT" operation
-   *
-   * @param connection the connection to use
-   * @param selectQuery the query
-   * @return the result of the query operation
-   */
-  public static TreeMap<String, HashMap<String, String>> select(Connection connection,
-      String selectQuery) {
-    TreeMap<String, HashMap<String, String>> selectResult = new TreeMap<>();
-    String[] attributes = selectQuery.replace(" ", "").replace("SELECT", "").split("FROM")[0]
-        .split(",");
-    PreparedStatement stmt = null;
-    ResultSet rs = null;
-
-    try {
-      stmt = connection.prepareStatement(selectQuery);
-      rs = stmt.executeQuery();
-      while (rs.next()) {
-        HashMap<String, String> eachResult = new HashMap<>();
-        for (int column = 1; column < attributes.length; column++) {
-          eachResult.put(attributes[column], rs.getString(column + 1));
-        }
-        selectResult.put(rs.getString(1), eachResult);
-      }
-
-    } catch (SQLException sqlExc) {
-      System.out.println(sqlExc.getMessage());
-    } finally {
-      try {
-        closeAll(stmt, rs, connection);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-
-    return selectResult;
   }
 
   /**

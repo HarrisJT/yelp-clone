@@ -3,8 +3,6 @@ package yelp.controller;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.TreeMap;
 import yelp.utils.DatabaseManager;
 
 public class UserController {
@@ -15,19 +13,19 @@ public class UserController {
    * @param namePattern pattern to match user's names
    * @return result of query
    */
-  public TreeMap<String, HashMap<String, String>> getUsers(String namePattern) {
-    TreeMap<String, HashMap<String, String>> users = new TreeMap<>();
-    String selectUsers = String
-        .format("SELECT id, name, startDate FROM USERS WHERE name LIKE '%%%s%%'", namePattern);
-
-    try {
-      users = DatabaseManager.select(DatabaseManager.getConnection(), selectUsers);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    return users;
-  }
+//  public TreeMap<String, HashMap<String, String>> getUsers(String namePattern) {
+//    TreeMap<String, HashMap<String, String>> users = new TreeMap<>();
+//    String selectUsers = String
+//        .format("SELECT id, name, startDate FROM USERS WHERE name LIKE '%%%s%%'", namePattern);
+//
+//    try {
+//      users = DatabaseManager.select(DatabaseManager.getConnection(), selectUsers);
+//    } catch (SQLException e) {
+//      e.printStackTrace();
+//    }
+//
+//    return users;
+//  }
 
   /**
    * Insert new user into the table

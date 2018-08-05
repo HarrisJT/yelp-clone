@@ -68,6 +68,9 @@ public class Business {
     this.outdoor_seating = outdoor_seating;
   }
 
+  public Business() {
+  }
+
   public String getId() {
     return id;
   }
