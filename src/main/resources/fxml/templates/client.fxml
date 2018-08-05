@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
@@ -29,21 +30,28 @@
             </HBox.margin>
           </Button>
           <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
-            promptText="Search business name..." fx:id="searchBar"/>
-          <ComboBox style="-fx-background-radius: 0 0 0 0;" promptText="Business"
-            fx:id="searchFieldComboBox">
+            promptText="Enter a business name or category..." fx:id="searchBar"/>
+          <ComboBox style="-fx-background-radius: 0 3 3 0;" fx:id="searchFieldComboBox">
             <items>
               <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Business"/>
-                <String fx:value="Category"/>
-                <String fx:value="City, State"/>
+                <String fx:value="Businesses"/>
+                <String fx:value="Categories"/>
               </FXCollections>
             </items>
+            <value>
+              <String fx:value="Businesses"/>
+            </value>
+            <HBox.margin>
+              <Insets right="7.0"/>
+            </HBox.margin>
           </ComboBox>
+          <Label text="Near: "/>
+
+          <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
+            promptText="City, State" fx:id="areaSearchBar"/>
           <Button style="-fx-background-radius: 0 3 3 0;" mnemonicParsing="false"
             text="Search" fx:id="searchButton"/>
 
-          <Button mnemonicParsing="false" text="+" fx:id="addParametersButton"/>
           <MenuButton mnemonicParsing="false" text="My Account">
             <items>
               <MenuItem mnemonicParsing="false" text="Login" fx:id="menuLoginButton"/>
@@ -53,24 +61,6 @@
               <Insets left="15.0"/>
             </HBox.margin>
           </MenuButton>
-        </HBox>
-        <HBox alignment="CENTER" layoutX="20.0" layoutY="10.0" prefHeight="40.0">
-          <children>
-            <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
-              promptText="Enter category" visible="false" fx:id="categorySearchBar"/>
-          </children>
-          <HBox.margin>
-            <Insets left="40.0" right="40.0"/>
-          </HBox.margin>
-        </HBox>
-        <HBox alignment="CENTER" layoutX="60.0" layoutY="50.0" prefHeight="40.0">
-          <children>
-            <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
-              promptText="Enter city, state" visible="false" fx:id="areaSearchBar"/>
-          </children>
-          <HBox.margin>
-            <Insets left="40.0" right="40.0"/>
-          </HBox.margin>
         </HBox>
         <padding>
           <Insets bottom="3.0" left="10.0" right="10.0"/>

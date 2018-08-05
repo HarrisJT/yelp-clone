@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 import yelp.model.Business;
 import yelp.utils.DatabaseManager;
 
@@ -14,15 +13,11 @@ public class BusinessDB {
   /**
    * Gets all users from database that meet the "name pattern" condition
    *
-   * @param namePattern pattern to match user's names
+   * @param query pattern to match user's names
    * @return result of query
    */
-  public static ArrayList<Business> getBusinessByName(String namePattern) {
-
-    String selectBusinesses = String
-        .format(
-            "SELECT id,name,address,postal_code,stars,open,credit_cards,car_parking,bike_parking,wheelchair_accessible,happy_hour,outdoor_seating FROM business WHERE name LIKE '%%%s%%'",
-            namePattern);
+  public static ArrayList<Business> getBusinessesByQuery(String query) {
+    System.out.println(query);
 
     ArrayList<Business> businesses = new ArrayList<>();
 
@@ -37,22 +32,15 @@ public class BusinessDB {
     }
 
     try {
-      stmt = connection.prepareStatement(selectBusinesses);
+      stmt = connection.prepareStatement(query);
       rs = stmt.executeQuery();
       while (rs.next()) {
         Business business = new Business();
-        business.setId(rs.getString(1));
-        business.setName(rs.getString(2));
-        business.setAddress(rs.getString(3));
-        business.setPostalCode(rs.getString(4));
-        business.setStars(Double.parseDouble(rs.getString(5)));
-        business.setOpen(Objects.equals(rs.getString(6), "1"));
-        business.setCredit_cards(rs.getString(7));
-        business.setCar_parking(rs.getString(8));
-        business.setBike_parking(rs.getString(9));
-        business.setWheelchair_accessible(rs.getString(10));
-        business.setHappy_hour(rs.getString(11));
-        business.setOutdoor_seating(rs.getString(12));
+        business.setId(rs.getString("id"));
+        business.setName(rs.getString("name"));
+        business.setAddress(rs.getString("address"));
+        business.setStars(Double.parseDouble(rs.getString("stars")));
+        //business.setOpen(Objects.equals(rs.getString("open"), "1"));
         businesses.add(business);
       }
     } catch (SQLException sqlExc) {

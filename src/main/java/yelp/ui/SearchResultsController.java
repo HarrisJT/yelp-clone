@@ -2,7 +2,6 @@ package yelp.ui;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,13 +45,21 @@ public class SearchResultsController extends BorderPane {
 
   private void setResultsTable() {
     TableColumn<Business, String> tableColumnBusinessName = new TableColumn<>("Business");
-    tableColumnBusinessName.setMinWidth(150);
+    tableColumnBusinessName.setMinWidth(200);
     tableColumnBusinessName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     TableColumn<Business, String> tableColumnBusinessAddress = new TableColumn<>("Address");
     tableColumnBusinessAddress.setMinWidth(150);
-    tableColumnBusinessAddress
-        .setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getAddress()));
+    tableColumnBusinessAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+    TableColumn<Business, String> tableColumnBusinessStars = new TableColumn<>("Stars");
+    tableColumnBusinessStars.setMinWidth(150);
+    tableColumnBusinessStars.setCellValueFactory(new PropertyValueFactory<>("stars"));
+
+//    TableColumn<Business, String> tableColumnBusinessAddress = new TableColumn<>("Address");
+//    tableColumnBusinessAddress.setMinWidth(150);
+//    tableColumnBusinessAddress
+//        .setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getAddress()));
 
     ObservableList<Business> businessObservableList = FXCollections.observableArrayList();
 
@@ -60,6 +67,7 @@ public class SearchResultsController extends BorderPane {
 
     searchResultsTable.getColumns().add(tableColumnBusinessName);
     searchResultsTable.getColumns().add(tableColumnBusinessAddress);
+    searchResultsTable.getColumns().add(tableColumnBusinessStars);
 
     searchResultsTable.setItems(businessObservableList);
   }

@@ -2,6 +2,7 @@ package yelp.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -13,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -23,6 +23,7 @@ import yelp.model.Business;
 import yelp.utils.SceneManager;
 
 public class ClientController extends StackPane {
+
   /**
    * The logger.
    */
@@ -38,20 +39,16 @@ public class ClientController extends StackPane {
   private BorderPane borderPane;
   @FXML
   private AnchorPane anchorPane;
-  @FXML
-  private ProgressIndicator progressIndicator;
 
   @FXML
   private ComboBox<String> searchFieldComboBox;
 
   @FXML
-  private TextField categorySearchBar;
+  private TextField searchBar;
 
   @FXML
   private TextField areaSearchBar;
 
-  @FXML
-  private TextField searchBar;
   @FXML
   private Button searchButton;
   @FXML
@@ -60,6 +57,7 @@ public class ClientController extends StackPane {
   private MenuItem menuLoginButton;
   @FXML
   private MenuItem menuSignUpButton;
+
 
   public ClientController() {
     sceneManager = new SceneManager();
@@ -92,9 +90,9 @@ public class ClientController extends StackPane {
   private void initialize() {
     logger.log(Level.INFO, "ClientController Initialized");
 
-
     // Search Bar
-    searchBar.setOnAction(a -> loadResults(searchBar.getText(), searchFieldComboBox.getValue()));
+    searchBar.setOnAction(a -> loadResults(searchBar.getText(), areaSearchBar.getText(),
+        searchFieldComboBox.getValue()));
 
     searchBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue) {
@@ -102,14 +100,18 @@ public class ClientController extends StackPane {
       }
     });
 
-    //Search Button
-    searchButton.setOnAction(searchBar.getOnAction());
+    // Search Bar
+    areaSearchBar.setOnAction(a -> loadResults(searchBar.getText(), areaSearchBar.getText(),
+        searchFieldComboBox.getValue()));
 
-    searchFieldComboBox.setOnAction(a -> {
-      if (searchFieldComboBox.getValue().equals("Add multiple search parameters")) {
-        logger.log(Level.INFO, "Added");
+    areaSearchBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        Platform.runLater(() -> areaSearchBar.selectAll());
       }
     });
+
+    //Search Button
+    searchButton.setOnAction(searchBar.getOnAction());
 
     // Home Button
     homeButton.setOnAction(a -> {
@@ -137,11 +139,40 @@ public class ClientController extends StackPane {
     });
   }
 
-  private void loadResults(final String searchText, final String searchFieldComboBox) {
+  private void loadResults(final String searchText, final String areaSearchText,
+      final String searchParameter) {
     Task<ArrayList<Business>> businessSearchTask = new Task<ArrayList<Business>>() {
       @Override
       public ArrayList<Business> call() throws Exception {
-        return BusinessDB.getBusinessByName(searchText);
+        if (areaSearchText.length() < 1) {
+          if (Objects.equals(searchParameter, "Categories")) {
+            // CASE 1: BUSINESSES (NO AREA)
+            String query = String
+                .format(
+                    "SELECT id,name,address,postal_code,stars,open,credit_cards,car_parking,bike_parking,wheelchair_accessible,happy_hour,outdoor_seating FROM business WHERE name LIKE '%%%s%%'",
+                    searchText);
+            return BusinessDB.getBusinessesByQuery(query);
+          }
+        } else {
+          if (Objects.equals(searchParameter, "Businesses")) {
+            // CASE 3: BUSINESSES w/ AREA
+//            String query = String
+//                .format(
+//                    "SELECT id,name,address,postal_code,stars,open,credit_cards,car_parking,bike_parking,wheelchair_accessible,happy_hour,outdoor_seating FROM business WHERE name LIKE '%%%s%%'",
+//                    searchText);
+          } else {
+            // CASE 4: CATEGORIES w/ AREA
+            String[] cityState = areaSearchText.trim().split(",");
+            String query = String
+                .format(
+                    "SELECT b1.id, b1.name, b1.address, b1.stars FROM (SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city = '%s' AND p.state = '%s') as b1 INNER JOIN belongs_to bt ON b1.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b1.stars DESC"
+                    , cityState[0].trim(), cityState[1].trim(), searchText
+                );
+            return BusinessDB.getBusinessesByQuery(query);
+
+          }
+        }
+        throw new IllegalArgumentException("No Argument");
       }
     };
 
