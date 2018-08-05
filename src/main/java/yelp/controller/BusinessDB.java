@@ -17,8 +17,6 @@ public class BusinessDB {
    * @return result of query
    */
   public static ArrayList<Business> getBusinessesByQuery(String query) {
-    System.out.println(query);
-
     ArrayList<Business> businesses = new ArrayList<>();
 
     PreparedStatement stmt = null;

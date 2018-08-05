@@ -1,6 +1,7 @@
 package yelp.ui;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,15 +32,32 @@ public class SearchResultsController extends BorderPane {
 
   private ArrayList<Business> businesses;
   private String searchTerm;
+  private String areaSearchText;
+  private String searchParameter;
 
-  public SearchResultsController(String searchTerm, ArrayList<Business> businesses) {
+
+  public SearchResultsController(String searchTerm, String areaSearchText, String searchParameter,
+      ArrayList<Business> businesses) {
     this.businesses = businesses;
     this.searchTerm = searchTerm;
+    this.areaSearchText = areaSearchText;
+    this.searchParameter = searchParameter;
   }
 
   @FXML
   public void initialize() {
-    searchResultsLabel.setText(String.format("Search results for: %s", searchTerm));
+    StringBuilder searchDisplayLabelText = new StringBuilder();
+    if (Objects.equals(this.searchParameter, "Businesses")) {
+      searchDisplayLabelText.append("Search results for '").append(searchTerm).append('\'');
+    } else {
+      searchDisplayLabelText.append("Best '").append(searchTerm).append('\'');
+    }
+
+    if (this.areaSearchText.length() > 0) {
+      searchDisplayLabelText.append(" near ").append(areaSearchText);
+    }
+
+    searchResultsLabel.setText(searchDisplayLabelText.toString());
     setResultsTable();
   }
 
@@ -49,7 +67,7 @@ public class SearchResultsController extends BorderPane {
     tableColumnBusinessName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     TableColumn<Business, String> tableColumnBusinessAddress = new TableColumn<>("Address");
-    tableColumnBusinessAddress.setMinWidth(150);
+    tableColumnBusinessAddress.setMinWidth(200);
     tableColumnBusinessAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
 
     TableColumn<Business, String> tableColumnBusinessStars = new TableColumn<>("Stars");

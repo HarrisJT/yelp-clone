@@ -144,41 +144,57 @@ public class ClientController extends StackPane {
     Task<ArrayList<Business>> businessSearchTask = new Task<ArrayList<Business>>() {
       @Override
       public ArrayList<Business> call() throws Exception {
-        if (areaSearchText.length() < 1) {
-          if (Objects.equals(searchParameter, "Categories")) {
+        String query;
+        if (areaSearchText.length() < 1 && searchText.length() > 0) {
+          if (Objects.equals(searchParameter, "Businesses")) {
             // CASE 1: BUSINESSES (NO AREA)
-            String query = String
+            query = String
                 .format(
-                    "SELECT id,name,address,postal_code,stars,open,credit_cards,car_parking,bike_parking,wheelchair_accessible,happy_hour,outdoor_seating FROM business WHERE name LIKE '%%%s%%'",
+                    "SELECT id, name, address, stars FROM business WHERE name = '\"%s\"' ORDER BY stars DESC;",
+                    searchText);
+            return BusinessDB.getBusinessesByQuery(query);
+          } else {
+            query = String
+                .format(
+                    "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN belongs_to bt ON b.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b.stars DESC;",
                     searchText);
             return BusinessDB.getBusinessesByQuery(query);
           }
         } else {
-          if (Objects.equals(searchParameter, "Businesses")) {
-            // CASE 3: BUSINESSES w/ AREA
-//            String query = String
-//                .format(
-//                    "SELECT id,name,address,postal_code,stars,open,credit_cards,car_parking,bike_parking,wheelchair_accessible,happy_hour,outdoor_seating FROM business WHERE name LIKE '%%%s%%'",
-//                    searchText);
+          String[] cityState = areaSearchText.trim().split(",");
+          if (searchText.length() < 1) {
+            query = String.format(
+                "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city = '%s' AND p.state = '%s' ORDER BY b.stars;",
+                cityState[0].trim(), cityState[1].trim());
           } else {
-            // CASE 4: CATEGORIES w/ AREA
-            String[] cityState = areaSearchText.trim().split(",");
-            String query = String
-                .format(
-                    "SELECT b1.id, b1.name, b1.address, b1.stars FROM (SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city = '%s' AND p.state = '%s') as b1 INNER JOIN belongs_to bt ON b1.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b1.stars DESC"
-                    , cityState[0].trim(), cityState[1].trim(), searchText
-                );
-            return BusinessDB.getBusinessesByQuery(query);
+            if (Objects.equals(searchParameter, "Businesses")) {
+              // CASE 3: BUSINESSES w/ AREA
+              query = String
+                  .format(
+                      "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city = '%s' AND p.state = '%s' AND b.name = '\"%s\"' ORDER BY b.stars;"
+                      , cityState[0].trim(), cityState[1].trim(), searchText);
 
+              return BusinessDB.getBusinessesByQuery(query);
+
+            } else {
+              // CASE 4: CATEGORIES w/ AREA
+              query = String
+                  .format(
+                      "SELECT b1.id, b1.name, b1.address, b1.stars FROM (SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code = p.code WHERE p.city = '%s' AND p.state = '%s') as b1 INNER JOIN belongs_to bt ON b1.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b1.stars DESC;"
+                      , cityState[0].trim(), cityState[1].trim(), searchText
+                  );
+
+            }
           }
+          return BusinessDB.getBusinessesByQuery(query);
+
         }
-        throw new IllegalArgumentException("No Argument");
       }
     };
 
     businessSearchTask.setOnSucceeded(e -> {
       SearchResultsController searchResultsController = new SearchResultsController(searchText,
-          businessSearchTask.getValue());
+          areaSearchText, searchParameter, businessSearchTask.getValue());
 
       FXMLLoader searchResultsLoader = new FXMLLoader();
       searchResultsLoader.setController(searchResultsController);

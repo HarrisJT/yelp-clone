@@ -29,7 +29,7 @@ public class DatabaseManager {
 
     // Required
     config.addDataSourceProperty("autoReconnect", "true");
-    config.addDataSourceProperty("useUnicode", "true");
+    //config.addDataSourceProperty("useUnicode", "true");
     //config.addDataSourceProperty("characterEncoding", "UTF-8");
     config.addDataSourceProperty("allowMultiQueries", "true");
     config.addDataSourceProperty("useSSL", "false");

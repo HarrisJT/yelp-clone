@@ -32,7 +32,5 @@ public class LoginController {
 
   public LoginController() {
     logger.log(Level.INFO, "LoginController Constructed");
-
-    // TODO: INITIALIZE HERE
   }
 }
