@@ -10,6 +10,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -50,7 +51,11 @@
           <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
             promptText="City, State" fx:id="areaSearchBar"/>
           <Button style="-fx-background-radius: 0 3 3 0;" mnemonicParsing="false"
-            text="Search" fx:id="searchButton"/>
+            text="Search" fx:id="searchButton">
+            <cursor>
+              <Cursor fx:constant="HAND"/>
+            </cursor>
+          </Button>
 
           <MenuButton mnemonicParsing="false" text="My Account">
             <items>

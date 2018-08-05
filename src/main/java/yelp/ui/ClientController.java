@@ -53,10 +53,15 @@ public class ClientController extends StackPane {
   private Button searchButton;
   @FXML
   private Button homeButton;
+
   @FXML
   private MenuItem menuLoginButton;
+
   @FXML
   private MenuItem menuSignUpButton;
+
+  @FXML
+  private LoginController loginController;
 
 
   public ClientController() {
@@ -82,6 +87,7 @@ public class ClientController extends StackPane {
       logger.log(Level.SEVERE, "", ex);
     }
   }
+
 
   /**
    * Called as soon as .fxml is initialized
@@ -137,6 +143,10 @@ public class ClientController extends StackPane {
         e.printStackTrace();
       }
     });
+  }
+
+  public AnchorPane getAnchorPane() {
+    return this.anchorPane;
   }
 
   private void loadResults(final String searchText, final String areaSearchText,

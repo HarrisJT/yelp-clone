@@ -21,13 +21,14 @@ public class LoginController {
   // ---- FXML  ----
 
   @FXML
-  private TextField usernameText;
+  private TextField usernameText2;
 
   @FXML
-  private TextField passwordText;
+  private TextField passwordText2;
 
   @FXML
   private Button logInButton;
+  ;
 
 
   public LoginController() {
