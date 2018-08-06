@@ -1,16 +1,26 @@
 package yelp.ui;
 
+import javafx.event.ActionEvent;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import yelp.model.Business;
 import yelp.utils.SceneManager;
 
@@ -29,6 +39,8 @@ public class SearchResultsController extends BorderPane {
 
   @FXML
   private Label searchResultsLabel;
+
+  private AnchorPane anchorPane;
 
   private ArrayList<Business> businesses;
   private String searchTerm;
@@ -90,4 +102,31 @@ public class SearchResultsController extends BorderPane {
     searchResultsTable.setItems(businessObservableList);
   }
 
+  public void showBusiness(){
+    Business business = searchResultsTable.getSelectionModel().getSelectedItem();
+
+    if (business == null) {
+      System.out.println("Nothing selected");
+      return;
+    } else {
+      System.out.println(business.getName());
+      try {
+        FXMLLoader businessLoader = new FXMLLoader(getClass().getResource("/fxml/business.fxml"));
+        Parent p = (Parent) businessLoader.load();
+
+        BusinessController businessController = businessLoader.getController();
+        businessLoader.setController(businessController);
+        if(businessController == null) {
+          System.out.println("business controller is null");
+          return;
+        }
+        businessController.setBusinessDisplay(business);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(p));
+        stage.show();
+      } catch (IOException | NullPointerException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 }

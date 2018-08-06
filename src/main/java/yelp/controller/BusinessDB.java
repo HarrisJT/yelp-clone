@@ -38,6 +38,22 @@ public class BusinessDB {
         business.setName(rs.getString("name"));
         business.setAddress(rs.getString("address"));
         business.setStars(Double.parseDouble(rs.getString("stars")));
+
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_close(rs.getTime("monday_close"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+//        business.setMonday_open(rs.getTime("monday_open"));
+
         //business.setOpen(Objects.equals(rs.getString("open"), "1"));
         businesses.add(business);
       }

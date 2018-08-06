@@ -6,23 +6,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml" AnchorPane.bottomAnchor="0.0"
-  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-  prefHeight="400.0" prefWidth="600.0" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx">
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="edge-to-edge" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yelp.ui.SearchResultsController">
   <center>
-    <TableView fx:id="searchResultsTable">
+    <TableView fx:id="searchResultsTable" onMouseClicked="#showBusiness">
       <BorderPane.margin>
-        <Insets/>
+        <Insets />
       </BorderPane.margin>
     </TableView>
   </center>
   <top>
-    <Label BorderPane.alignment="CENTER" text="Search results for:" fx:id="searchResultsLabel">
+    <Label fx:id="searchResultsLabel" text="Search results for:" BorderPane.alignment="CENTER">
       <font>
-        <Font name="System Bold" size="22.0"/>
+        <Font name="System Bold" size="22.0" />
       </font>
       <BorderPane.margin>
-        <Insets bottom="10.0" top="10.0"/>
+        <Insets bottom="10.0" top="10.0" />
       </BorderPane.margin>
     </Label>
   </top>
