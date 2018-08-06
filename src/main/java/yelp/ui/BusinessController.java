@@ -34,7 +34,6 @@ public class BusinessController implements Initializable {
   @FXML
   private TableView<Review> reviewsTable;
 
-  private ArrayList<Review> reviews;
 
 
   @Override
@@ -66,7 +65,7 @@ public class BusinessController implements Initializable {
     weekendHours.setText(weekendOpenTime);
   }
 
-  public void setReviewTable() {
+  public void setReviewTable(ArrayList<Review> reviews) {
     // Votes cloumn
     TableColumn<Review, Integer> tableColumnVotes = new TableColumn<>("Votes");
     tableColumnVotes.setMinWidth(200);
