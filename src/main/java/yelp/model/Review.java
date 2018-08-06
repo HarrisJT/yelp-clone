@@ -11,6 +11,8 @@ public class Review {
   private Date date;
   private int votes;
 
+  public Review(){}
+
   public Review(String userId, String businessId, String text, int rating, Date date, int votes) {
 
     this.userId = userId;

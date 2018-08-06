@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -122,6 +123,7 @@ public class SearchResultsController extends BorderPane {
           return;
         }
         businessController.setBusinessDisplay(business);
+        // TODO: add all the reviews
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.show();

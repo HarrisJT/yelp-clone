@@ -11,7 +11,7 @@ import yelp.utils.DatabaseManager;
 public class BusinessDB {
 
   /**
-   * Gets all users from database that meet the "name pattern" condition
+   * Gets all businesses from database that meet the "name pattern" condition
    *
    * @param query pattern to match user's names
    * @return result of query
