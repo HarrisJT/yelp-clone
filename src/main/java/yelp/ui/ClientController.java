@@ -160,14 +160,14 @@ public class ClientController extends StackPane {
             // CASE 1: BUSINESSES (NO AREA)
             query = String
                 .format(
-                    "SELECT id, name, address, stars FROM business WHERE name LIKE '%%%s%%' ORDER BY stars DESC;",
+                    "SELECT * FROM business WHERE name LIKE '%%%s%%' ORDER BY stars DESC;",
                     searchText);
             logger.log(Level.INFO, query);
             return BusinessDB.getBusinessesByQuery(query);
           } else {
             query = String
                 .format(
-                    "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN belongs_to bt ON b.id = bt.business_id WHERE bt.category_name LIKE '%%%s%%' ORDER BY b.stars DESC;",
+                    "SELECT * FROM business b INNER JOIN belongs_to bt ON b.id = bt.business_id WHERE bt.category_name LIKE '%%%s%%' ORDER BY b.stars DESC;",
                     searchText);
             return BusinessDB.getBusinessesByQuery(query);
           }
@@ -176,14 +176,14 @@ public class ClientController extends StackPane {
           if (searchText.isEmpty()) {
             // EXTRA CASE: AREA w/o OTHER SEARCH TERM
             query = String.format(
-                "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' ORDER BY b.stars;",
+                "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' ORDER BY b.stars;",
                 cityState[0].trim(), cityState[1].trim());
           } else {
             if (Objects.equals(searchParameter, "Businesses")) {
               // CASE 3: BUSINESSES w/ AREA
               query = String
                   .format(
-                      "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' AND b.name LIKE '%%%s%%' ORDER BY b.stars;"
+                      "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' AND b.name LIKE '%%%s%%' ORDER BY b.stars;"
                       , cityState[0].trim(), cityState[1].trim(), searchText);
 
               return BusinessDB.getBusinessesByQuery(query);
@@ -192,7 +192,7 @@ public class ClientController extends StackPane {
               // CASE 4: CATEGORIES w/ AREA
               query = String
                   .format(
-                      "SELECT b1.id, b1.name, b1.address, b1.stars FROM (SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code = p.code WHERE p.city = '%s' AND p.state = '%s') as b1 INNER JOIN belongs_to bt ON b1.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b1.stars DESC;"
+                      "SELECT * FROM (SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code = p.code WHERE p.city = '%s' AND p.state = '%s') as b1 INNER JOIN belongs_to bt ON b1.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b1.stars DESC;"
                       , cityState[0].trim(), cityState[1].trim(), searchText
                   );
 

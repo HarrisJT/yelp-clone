@@ -41,20 +41,20 @@ public class BusinessDB {
         business.setAddress(address.substring(1, address.length() - 1));
         business.setStars(Double.parseDouble(rs.getString("stars")));
 
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_close(rs.getTime("monday_close"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
-//        business.setMonday_open(rs.getTime("monday_open"));
+        business.setMonday_open(rs.getTime("monday_open"));
+        business.setMonday_close(rs.getTime("monday_close"));
+        business.setTuesday_open(rs.getTime("tuesday_open"));
+        business.setTuesday_close(rs.getTime("tuesday_close"));
+        business.setWednesday_open(rs.getTime("wednesday_open"));
+        business.setWednesday_close(rs.getTime("wednesday_close"));
+        business.setThursday_open(rs.getTime("thursday_open"));
+        business.setThursday_close(rs.getTime("thursday_close"));
+        business.setFriday_open(rs.getTime("friday_open"));
+        business.setFriday_close(rs.getTime("friday_close"));
+        business.setSaturday_open(rs.getTime("saturday_open"));
+        business.setSaturday_close(rs.getTime("saturday_close"));
+        business.setSunday_open(rs.getTime("sunday_open"));
+        business.setSunday_close(rs.getTime("sunday_close"));
 
         //business.setOpen(Objects.equals(rs.getString("open"), "1"));
         businesses.add(business);
