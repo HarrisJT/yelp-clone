@@ -18,7 +18,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import yelp.controller.ReviewDB;
 import yelp.model.Business;
+import yelp.model.Review;
 import yelp.utils.SceneManager;
 
 public class SearchResultsController extends BorderPane {
@@ -124,6 +126,7 @@ public class SearchResultsController extends BorderPane {
         }
         businessController.setBusinessDisplay(business);
         // TODO: add all the reviews
+        businessController.setReviewTable(loadReviews(business));
         Stage stage = new Stage();
         stage.setScene(new Scene(p));
         stage.show();
@@ -131,5 +134,10 @@ public class SearchResultsController extends BorderPane {
         e.printStackTrace();
       }
     }
+  }
+
+  private ArrayList<Review> loadReviews(Business business) {
+    String query = String.format("select b.name, w.text, w.votes from business b inner join writes_review2 w on b.id = w.business_id where b.id = %s order by w.votes", business.getId());
+    return ReviewDB.getReviews(query);
   }
 }
