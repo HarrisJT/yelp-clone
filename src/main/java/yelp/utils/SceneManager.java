@@ -11,11 +11,11 @@ import javafx.scene.layout.Pane;
 
 public class SceneManager {
 
-  private Executor threadPool;
   /**
    * The logger.
    */
   private final Logger logger = Logger.getLogger(getClass().getName());
+  private Executor threadPool;
 
   public SceneManager() {
     threadPool = Executors.newCachedThreadPool(runnable -> {

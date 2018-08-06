@@ -155,33 +155,35 @@ public class ClientController extends StackPane {
       @Override
       public ArrayList<Business> call() throws Exception {
         String query;
-        if (areaSearchText.length() < 1 && searchText.length() > 0) {
+        if (areaSearchText.isEmpty()) {
           if (Objects.equals(searchParameter, "Businesses")) {
             // CASE 1: BUSINESSES (NO AREA)
             query = String
                 .format(
-                    "SELECT id, name, address, stars FROM business WHERE name = '\"%s\"' ORDER BY stars DESC;",
+                    "SELECT id, name, address, stars FROM business WHERE name LIKE '%%%s%%' ORDER BY stars DESC;",
                     searchText);
+            logger.log(Level.INFO, query);
             return BusinessDB.getBusinessesByQuery(query);
           } else {
             query = String
                 .format(
-                    "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN belongs_to bt ON b.id = bt.business_id WHERE bt.category_name = '%s' ORDER BY b.stars DESC;",
+                    "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN belongs_to bt ON b.id = bt.business_id WHERE bt.category_name LIKE '%%%s%%' ORDER BY b.stars DESC;",
                     searchText);
             return BusinessDB.getBusinessesByQuery(query);
           }
         } else {
           String[] cityState = areaSearchText.trim().split(",");
-          if (searchText.length() < 1) {
+          if (searchText.isEmpty()) {
+            // EXTRA CASE: AREA w/o OTHER SEARCH TERM
             query = String.format(
-                "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city = '%s' AND p.state = '%s' ORDER BY b.stars;",
+                "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' ORDER BY b.stars;",
                 cityState[0].trim(), cityState[1].trim());
           } else {
             if (Objects.equals(searchParameter, "Businesses")) {
               // CASE 3: BUSINESSES w/ AREA
               query = String
                   .format(
-                      "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city = '%s' AND p.state = '%s' AND b.name = '\"%s\"' ORDER BY b.stars;"
+                      "SELECT b.id, b.name, b.address, b.stars FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' AND b.name LIKE '%%%s%%' ORDER BY b.stars;"
                       , cityState[0].trim(), cityState[1].trim(), searchText);
 
               return BusinessDB.getBusinessesByQuery(query);
@@ -197,7 +199,6 @@ public class ClientController extends StackPane {
             }
           }
           return BusinessDB.getBusinessesByQuery(query);
-
         }
       }
     };

@@ -33,10 +33,12 @@ public class BusinessDB {
       stmt = connection.prepareStatement(query);
       rs = stmt.executeQuery();
       while (rs.next()) {
+        String name = rs.getString("name");
+        String address = rs.getString("address");
         Business business = new Business();
         business.setId(rs.getString("id"));
-        business.setName(rs.getString("name"));
-        business.setAddress(rs.getString("address"));
+        business.setName(name.substring(1, name.length() - 1));
+        business.setAddress(address.substring(1, address.length() - 1));
         business.setStars(Double.parseDouble(rs.getString("stars")));
 
 //        business.setMonday_open(rs.getTime("monday_open"));

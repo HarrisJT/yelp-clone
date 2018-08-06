@@ -1,35 +1,34 @@
 package yelp.ui;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import yelp.model.Business;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class BusinessController implements Initializable {
 
-    // ---- FXML ----
-    @FXML
-    private Text businessName;
-    @FXML
-    private Text rating;
-    @FXML
-    private Text address;
-    @FXML
-    private Text hours;
+  // ---- FXML ----
+  @FXML
+  private Text businessName;
+  @FXML
+  private Text rating;
+  @FXML
+  private Text address;
+  @FXML
+  private Text hours;
 
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
 
-    }
+  }
 
-    public void setBusinessDisplay(Business business) {
-        businessName.setText(business.getName());
-        rating.setText(String.valueOf(business.getStars()));
-        address.setText(business.getAddress());
+  public void setBusinessDisplay(Business business) {
+    businessName.setText(business.getName());
+    rating.setText(String.valueOf(business.getStars()));
+    address.setText(business.getAddress());
 
 //        String openTime = String.format("MON: %s - %s\n" +
 //                                        "TUE: %s - %s\n" +
@@ -46,6 +45,6 @@ public class BusinessController implements Initializable {
 //                business.getSaturday_open().toString(), business.getSaturday_close().toString(),
 //                business.getSunday_open().toString(), business.getSunday_close().toString());
 
-        hours.setText(String.format("MON: %s", business.getMonday_open()));
-    }
+    hours.setText(String.format("MON: %s", business.getMonday_open()));
+  }
 }

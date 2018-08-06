@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
@@ -8,75 +9,79 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yelp.ui.BusinessController">
-   <children>
-      <VBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="600.0">
-         <children>
-            <Text fx:id="businessName" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="600">
-               <font>
-                  <Font size="67.0" />
-               </font>
-            </Text>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="70.0" prefWidth="110.0" text="Rating:">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="rating" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="70.0" prefWidth="110.0" text="Location:">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="address" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Text>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="70.0" prefWidth="110.0" text="Hours: ">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Text fx:id="hours" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
-            <Label text="Reviews &amp; Tips:">
-               <font>
-                  <Font size="23.0" />
-               </font>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" maxHeight="-Infinity" maxWidth="-Infinity"
+  minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0"
+  xmlns="http://javafx.com/javafx" fx:controller="yelp.ui.BusinessController">
+  <children>
+    <VBox layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="600.0">
+      <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="600"
+          fx:id="businessName">
+          <font>
+            <Font size="67.0"/>
+          </font>
+        </Text>
+        <HBox prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label prefHeight="70.0" prefWidth="110.0" text="Rating:">
+              <font>
+                <Font size="23.0"/>
+              </font>
             </Label>
-            <TableView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="271.0" prefWidth="580.0" />
-         </children>
-      </VBox>
-   </children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300" fx:id="rating">
+              <font>
+                <Font size="24.0"/>
+              </font>
+              <HBox.margin>
+                <Insets top="10.0"/>
+              </HBox.margin>
+            </Text>
+          </children>
+        </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label prefHeight="70.0" prefWidth="110.0" text="Location:">
+              <font>
+                <Font size="23.0"/>
+              </font>
+            </Label>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300" fx:id="address">
+              <font>
+                <Font size="23.0"/>
+              </font>
+              <HBox.margin>
+                <Insets top="10.0"/>
+              </HBox.margin>
+            </Text>
+          </children>
+        </HBox>
+        <HBox prefHeight="100.0" prefWidth="200.0">
+          <children>
+            <Label prefHeight="70.0" prefWidth="110.0" text="Hours: ">
+              <font>
+                <Font size="23.0"/>
+              </font>
+            </Label>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="300" fx:id="hours">
+              <HBox.margin>
+                <Insets top="10.0"/>
+              </HBox.margin>
+              <font>
+                <Font size="23.0"/>
+              </font>
+            </Text>
+          </children>
+        </HBox>
+        <Label text="Reviews &amp; Tips:">
+          <font>
+            <Font size="23.0"/>
+          </font>
+        </Label>
+        <TableView maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="271.0" prefWidth="580.0"/>
+      </children>
+    </VBox>
+  </children>
 </AnchorPane>

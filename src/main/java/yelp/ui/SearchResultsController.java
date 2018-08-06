@@ -1,8 +1,6 @@
 package yelp.ui;
 
-import javafx.event.ActionEvent;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -10,14 +8,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -59,10 +55,15 @@ public class SearchResultsController extends BorderPane {
   @FXML
   public void initialize() {
     StringBuilder searchDisplayLabelText = new StringBuilder();
-    if (Objects.equals(this.searchParameter, "Businesses")) {
-      searchDisplayLabelText.append("Search results for '").append(searchTerm).append('\'');
+
+    if (searchTerm.length() > 0) {
+      if (Objects.equals(this.searchParameter, "Businesses")) {
+        searchDisplayLabelText.append("Search results for '").append(searchTerm).append('\'');
+      } else {
+        searchDisplayLabelText.append("Best '").append(searchTerm).append('\'');
+      }
     } else {
-      searchDisplayLabelText.append("Best '").append(searchTerm).append('\'');
+      searchDisplayLabelText.append("Everything");
     }
 
     if (this.areaSearchText.length() > 0) {
@@ -102,7 +103,7 @@ public class SearchResultsController extends BorderPane {
     searchResultsTable.setItems(businessObservableList);
   }
 
-  public void showBusiness(){
+  public void showBusiness() {
     Business business = searchResultsTable.getSelectionModel().getSelectedItem();
 
     if (business == null) {
@@ -116,7 +117,7 @@ public class SearchResultsController extends BorderPane {
 
         BusinessController businessController = businessLoader.getController();
         businessLoader.setController(businessController);
-        if(businessController == null) {
+        if (businessController == null) {
           System.out.println("business controller is null");
           return;
         }
