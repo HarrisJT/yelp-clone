@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class reviewDB {
+public class ReviewDB {
 
     /**
      * Gets all reviews from database for a certain business
