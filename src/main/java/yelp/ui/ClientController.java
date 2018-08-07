@@ -180,14 +180,14 @@ public class ClientController extends StackPane {
           if (searchText.isEmpty()) {
             // EXTRA CASE: AREA w/o OTHER SEARCH TERM
             query = String.format(
-                "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' ORDER BY b.stars;",
+                "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' ORDER BY b.stars DESC;",
                 cityState[0].trim(), cityState[1].trim());
           } else {
             if (Objects.equals(searchParameter, "Businesses")) {
               // CASE 3: BUSINESSES w/ AREA
               query = String
                   .format(
-                      "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' AND b.name LIKE '%%%s%%' ORDER BY b.stars;"
+                      "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' AND b.name LIKE '%%%s%%' ORDER BY b.stars DESC;"
                       , cityState[0].trim(), cityState[1].trim(), searchText);
             } else {
               // CASE 4: CATEGORIES w/ AREA
