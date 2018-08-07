@@ -133,7 +133,7 @@ public class SearchResultsController extends BorderPane {
       @Override
       public ArrayList<Review> call() throws Exception {
         String query = String.format(
-            "SELECT w.text, w.review_date, w.votes FROM business b INNER JOIN writes_review2 w ON b.id = w.business_id WHERE b.id = '%s' ORDER BY w.votes DESC",
+            "SELECT w.text, w.review_date, w.votes, w.rating FROM business b INNER JOIN writes_review2 w ON b.id = w.business_id WHERE b.id = '%s' ORDER BY w.votes DESC",
             selectedBusiness.getId());
         return ReviewDB.getReviews(query);
       }

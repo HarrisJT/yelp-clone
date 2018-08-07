@@ -25,3 +25,14 @@ task(runMain, dependsOn: 'classes', type: JavaExec) {
     main = 'main.java.yelp.Main'
     classpath = sourceSets.main.runtimeClasspath
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Revidi',
+                'Implementation-Version': version,
+                'Main-Class': 'main.java.yelp.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

@@ -99,6 +99,11 @@ public class BusinessController {
     tableColumnVotes.setCellValueFactory(new PropertyValueFactory<>("votes"));
     tableColumnVotes.prefWidthProperty().bind(reviewsTable.widthProperty().multiply(0.05));
 
+    // Votes column
+    TableColumn<Review, Integer> tableColumnRating = new TableColumn<>("Rating");
+    tableColumnRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+    tableColumnRating.prefWidthProperty().bind(reviewsTable.widthProperty().multiply(0.05));
+
     // Date column
     TableColumn<Review, String> tableColumnDate = new TableColumn<>("Date");
     tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("reviewDate"));
@@ -123,6 +128,7 @@ public class BusinessController {
     reviewsObservableList.addAll(reviews);
 
     reviewsTable.getColumns().add(tableColumnVotes);
+    reviewsTable.getColumns().add(tableColumnRating);
     reviewsTable.getColumns().add(tableColumnDate);
     reviewsTable.getColumns().add(tableColumnText);
     reviewsTable.setItems(reviewsObservableList);
