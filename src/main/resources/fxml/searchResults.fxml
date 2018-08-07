@@ -3,20 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/" AnchorPane.bottomAnchor="0.0"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0"
   AnchorPane.leftAnchor="0.0"
-  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="400.0"
-  prefWidth="600.0" styleClass="edge-to-edge" xmlns="http://javafx.com/javafx">
-  <center>
-    <TableView onMouseClicked="#showBusiness" fx:id="searchResultsTable">
-      <BorderPane.margin>
-        <Insets/>
-      </BorderPane.margin>
-    </TableView>
-  </center>
+  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="edge-to-edge"
+  xmlns="http://javafx.com/javafx/8.0.121">
   <top>
     <Label BorderPane.alignment="CENTER" text="Search results for:" fx:id="searchResultsLabel">
       <font>
@@ -27,4 +21,11 @@
       </BorderPane.margin>
     </Label>
   </top>
+  <center>
+    <TableView BorderPane.alignment="CENTER" fx:id="searchResultsTable">
+      <cursor>
+        <Cursor fx:constant="HAND"/>
+      </cursor>
+    </TableView>
+  </center>
 </BorderPane>

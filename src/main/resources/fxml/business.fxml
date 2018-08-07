@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -10,11 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER"
-  xmlns="http://javafx.com/javafx/8.0.121" fx:controller="yelp.ui.BusinessController">
+<GridPane xmlns:fx="http://javafx.com/fxml" AnchorPane.bottomAnchor="0.0"
+  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+  alignment="CENTER" cache="true" xmlns="http://javafx.com/javafx">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES"/>
-    <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0"/>
+    <ColumnConstraints hgrow="NEVER" minWidth="10.0"/>
+    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0"/>
     <ColumnConstraints/>
   </columnConstraints>
   <rowConstraints>
@@ -34,10 +36,10 @@
         <Font size="65.0"/>
       </font>
     </Text>
-    <Label style="-fx-font-weight: bold;" GridPane.halignment="RIGHT" GridPane.rowIndex="1"
-      GridPane.valignment="CENTER" alignment="TOP_LEFT" text="Rating:">
+    <Label GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="1"
+      GridPane.valignment="CENTER" GridPane.vgrow="NEVER" alignment="TOP_LEFT" text="Rating:">
       <font>
-        <Font size="23.0"/>
+        <Font name="System Bold" size="22.0"/>
       </font>
       <GridPane.margin>
         <Insets right="15.0"/>
@@ -47,13 +49,13 @@
       GridPane.valignment="CENTER" GridPane.vgrow="NEVER" boundsType="LOGICAL_VERTICAL_CENTER"
       strokeType="OUTSIDE" strokeWidth="0.0" fx:id="rating">
       <font>
-        <Font size="23.0"/>
+        <Font size="22.0"/>
       </font>
     </Text>
-    <Label style="-fx-font-weight: bold;" GridPane.halignment="RIGHT" GridPane.rowIndex="2"
-      GridPane.valignment="CENTER" alignment="TOP_LEFT" text="Location:">
+    <Label GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="2"
+      GridPane.valignment="CENTER" GridPane.vgrow="NEVER" alignment="TOP_LEFT" text="Location:">
       <font>
-        <Font size="23.0"/>
+        <Font name="System Bold" size="22.0"/>
       </font>
       <GridPane.margin>
         <Insets right="15.0"/>
@@ -63,13 +65,13 @@
       GridPane.valignment="CENTER" GridPane.vgrow="NEVER" boundsType="LOGICAL_VERTICAL_CENTER"
       strokeType="OUTSIDE" strokeWidth="0.0" fx:id="address">
       <font>
-        <Font size="23.0"/>
+        <Font size="22.0"/>
       </font>
     </Text>
-    <Label style="-fx-font-weight: bold;" GridPane.halignment="RIGHT" GridPane.rowIndex="3"
-      GridPane.valignment="CENTER" alignment="TOP_LEFT" text="Hours: ">
+    <Label GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.rowIndex="3"
+      GridPane.valignment="CENTER" GridPane.vgrow="NEVER" alignment="TOP_LEFT" text="Hours: ">
       <font>
-        <Font size="23.0"/>
+        <Font name="System Bold" size="22.0"/>
       </font>
       <GridPane.margin>
         <Insets right="15.0"/>
@@ -90,20 +92,19 @@
           <font>
             <Font size="16.0"/>
           </font>
-            </Text>
+        </Text>
       </children>
     </HBox>
-    <VBox GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4"
-      alignment="CENTER">
+    <VBox GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER"
+      GridPane.rowIndex="4" alignment="CENTER">
       <children>
-        <Label style="-fx-font-weight: bold;" VBox.vgrow="NEVER" alignment="CENTER"
-          contentDisplay="CENTER" graphicTextGap="0.0" text="Reviews &amp; Tips:"
-          textAlignment="CENTER" fx:id="reviewLabel">
+        <Label VBox.vgrow="NEVER" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0"
+          text="Reviews &amp; Tips:" textAlignment="CENTER" fx:id="reviewLabel">
           <font>
-            <Font size="23.0" />
+            <Font name="System Bold" size="22.0"/>
           </font>
         </Label>
-        <TableView prefHeight="400.0" prefWidth="950.0" fx:id="reviewsTable"/>
+        <TableView fx:id="reviewsTable"/>
       </children>
     </VBox>
   </children>

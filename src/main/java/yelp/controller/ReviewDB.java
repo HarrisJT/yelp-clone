@@ -1,13 +1,12 @@
 package yelp.controller;
 
-import yelp.model.Review;
-import yelp.utils.DatabaseManager;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import yelp.model.Review;
+import yelp.utils.DatabaseManager;
 
 public class ReviewDB {
 
@@ -38,6 +37,7 @@ public class ReviewDB {
                 Review review = new Review();
                 review.setText(rs.getString("text"));
                 review.setVotes(rs.getInt("votes"));
+                review.setReviewDate(rs.getDate("review_date"));
 
                 reviews.add(review);
             }

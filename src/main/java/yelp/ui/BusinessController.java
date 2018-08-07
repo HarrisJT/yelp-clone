@@ -1,12 +1,11 @@
 package yelp.ui;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Control;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,7 +13,7 @@ import javafx.scene.text.Text;
 import yelp.model.Business;
 import yelp.model.Review;
 
-public class BusinessController implements Initializable {
+public class BusinessController {
 
   // ---- FXML ----
   @FXML
@@ -30,14 +29,23 @@ public class BusinessController implements Initializable {
   @FXML
   private Text weekendHours;
 
-
   @FXML
   private TableView<Review> reviewsTable;
 
+  private Business business;
+
+  private ArrayList<Review> reviews;
 
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
+  public BusinessController(Business business, ArrayList<Review> reviews) {
+    this.business = business;
+    this.reviews = reviews;
+  }
+
+  @FXML
+  public void initialize() {
+    setBusinessDisplay(business);
+    setReviewTable(reviews);
   }
 
   public void setBusinessDisplay(Business business) {
@@ -66,24 +74,37 @@ public class BusinessController implements Initializable {
   }
 
   public void setReviewTable(ArrayList<Review> reviews) {
-    // Votes cloumn
+    // Votes column
     TableColumn<Review, Integer> tableColumnVotes = new TableColumn<>("Votes");
-    tableColumnVotes.setMinWidth(200);
     tableColumnVotes.setCellValueFactory(new PropertyValueFactory<>("votes"));
+    tableColumnVotes.prefWidthProperty().bind(reviewsTable.widthProperty().multiply(0.05));
 
-    // Text cloumn
+    // Date column
+    TableColumn<Review, String> tableColumnDate = new TableColumn<>("Date");
+    tableColumnDate.setCellValueFactory(new PropertyValueFactory<>("reviewDate"));
+    tableColumnDate.prefWidthProperty().bind(reviewsTable.widthProperty().multiply(0.10));
+
+    // Text column
     TableColumn<Review, String> tableColumnText = new TableColumn<>("Review");
-    tableColumnText.setMinWidth(300);
+    tableColumnText.setCellFactory(tc -> {
+      TableCell<Review, String> cell = new TableCell<>();
+      Text text = new Text();
+      cell.setGraphic(text);
+      cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+      text.wrappingWidthProperty().bind(tableColumnText.widthProperty());
+      text.textProperty().bind(cell.itemProperty());
+      return cell;
+    });
     tableColumnText.setCellValueFactory(new PropertyValueFactory<>("text"));
+    tableColumnText.prefWidthProperty().bind(reviewsTable.widthProperty().multiply(0.80));
 
     ObservableList<Review> reviewsObservableList = FXCollections.observableArrayList();
 
     reviewsObservableList.addAll(reviews);
 
     reviewsTable.getColumns().add(tableColumnVotes);
+    reviewsTable.getColumns().add(tableColumnDate);
     reviewsTable.getColumns().add(tableColumnText);
-
     reviewsTable.setItems(reviewsObservableList);
-
   }
 }

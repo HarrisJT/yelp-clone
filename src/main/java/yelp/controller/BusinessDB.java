@@ -39,7 +39,7 @@ public class BusinessDB {
         business.setId(rs.getString("id"));
         business.setName(name.substring(1, name.length() - 1));
         business.setAddress(address.substring(1, address.length() - 1));
-        business.setStars(Double.parseDouble(rs.getString("stars")));
+        business.setStars(rs.getDouble("stars"));
 
         business.setMonday_open(rs.getTime("monday_open"));
         business.setMonday_close(rs.getTime("monday_close"));
@@ -56,7 +56,7 @@ public class BusinessDB {
         business.setSunday_open(rs.getTime("sunday_open"));
         business.setSunday_close(rs.getTime("sunday_close"));
 
-        //business.setOpen(Objects.equals(rs.getString("open"), "1"));
+        //business.setOpen(Objects.equals(rs.getString("open"), "1")); // dont use
         businesses.add(business);
       }
     } catch (SQLException sqlExc) {

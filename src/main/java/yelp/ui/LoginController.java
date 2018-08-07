@@ -28,7 +28,6 @@ public class LoginController {
 
   @FXML
   private Button logInButton;
-  ;
 
 
   public LoginController() {

@@ -8,18 +8,19 @@ public class Review {
   private String businessId;
   private String text;
   private int rating;
-  private Date date;
+  private Date reviewDate;
   private int votes;
 
   public Review(){}
 
-  public Review(String userId, String businessId, String text, int rating, Date date, int votes) {
+  public Review(String userId, String businessId, String text, int rating, Date reviewDate,
+      int votes) {
 
     this.userId = userId;
     this.businessId = businessId;
     this.text = text;
     this.rating = rating;
-    this.date = date;
+    this.reviewDate = reviewDate;
     this.votes = votes;
   }
 
@@ -55,12 +56,12 @@ public class Review {
     this.rating = rating;
   }
 
-  public Date getDate() {
-    return date;
+  public Date getReviewDate() {
+    return reviewDate;
   }
 
-  public void setDate(Date date) {
-    this.date = date;
+  public void setReviewDate(Date reviewDate) {
+    this.reviewDate = reviewDate;
   }
 
   public int getVotes() {

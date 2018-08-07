@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="450" prefWidth="800"
-  stylesheets="styles/main.css" type="StackPane" xmlns="http://javafx.com/javafx/8.0.121">
+<fx:root xmlns:fx="http://javafx.com/fxml" prefHeight="450" prefWidth="800"
+  stylesheets="@../../styles/main.css" type="StackPane" xmlns="http://javafx.com/javafx">
   <BorderPane fx:id="borderPane">
     <top>
-      <VBox style="-fx-border-width: 0 0 1 0; -fx-border-color: #202020;"
+      <VBox style="-fx-border-width: 0 0 1 0; -fx-border-color: rgba(32,32,32,.25);"
         BorderPane.alignment="CENTER" alignment="CENTER">
         <HBox VBox.vgrow="ALWAYS" alignment="CENTER" prefHeight="40.0">
           <Button mnemonicParsing="false" text="Home" fx:id="homeButton">
@@ -28,9 +28,9 @@
               <Insets right="15.0"/>
             </HBox.margin>
           </Button>
-          <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
+          <TextField style="-fx-background-radius: 4 0 0 4;" HBox.hgrow="ALWAYS"
             promptText="Enter a business name or category..." fx:id="searchBar"/>
-          <ComboBox style="-fx-background-radius: 0 3 3 0;" fx:id="searchFieldComboBox">
+          <ComboBox style="-fx-background-radius: 0 4 4 0;" fx:id="searchFieldComboBox">
             <items>
               <FXCollections fx:factory="observableArrayList">
                 <String fx:value="Businesses"/>
@@ -46,9 +46,9 @@
           </ComboBox>
           <Label text="Near: "/>
 
-          <TextField style="-fx-background-radius: 3 0 0 3;" HBox.hgrow="ALWAYS"
+          <TextField style="-fx-background-radius: 4 0 0 4;" HBox.hgrow="ALWAYS"
             promptText="City, State" fx:id="areaSearchBar"/>
-          <Button style="-fx-background-radius: 0 3 3 0;" mnemonicParsing="false" text="Search"
+          <Button style="-fx-background-radius: 0 4 4 0;" mnemonicParsing="false" text="Search"
             fx:id="searchButton">
             <cursor>
               <Cursor fx:constant="HAND"/>

@@ -31,12 +31,13 @@ public class ClientController extends StackPane {
 
   private FXMLLoader loader;
   private SceneManager sceneManager;
-  // java.util.concurrent.Executor typically provides a pool of threads
+  // java.util.concurrent.Executor provides a pool of threads
   private Executor threadPool;
 
   // ---- FXML  ----
   @FXML
   private BorderPane borderPane;
+
   @FXML
   private AnchorPane anchorPane;
 
@@ -51,6 +52,7 @@ public class ClientController extends StackPane {
 
   @FXML
   private Button searchButton;
+
   @FXML
   private Button homeButton;
 
@@ -59,9 +61,6 @@ public class ClientController extends StackPane {
 
   @FXML
   private MenuItem menuSignUpButton;
-
-  @FXML
-  private LoginController loginController;
 
 
   public ClientController() {
@@ -145,8 +144,16 @@ public class ClientController extends StackPane {
     });
   }
 
+  public Executor getThreadPool() {
+    return this.threadPool;
+  }
+
   public AnchorPane getAnchorPane() {
     return this.anchorPane;
+  }
+
+  public SceneManager getSceneManager() {
+    return this.sceneManager;
   }
 
   private void loadResults(final String searchText, final String areaSearchText,
@@ -162,14 +169,11 @@ public class ClientController extends StackPane {
                 .format(
                     "SELECT * FROM business WHERE name LIKE '%%%s%%' ORDER BY stars DESC;",
                     searchText);
-            logger.log(Level.INFO, query);
-            return BusinessDB.getBusinessesByQuery(query);
           } else {
             query = String
                 .format(
                     "SELECT * FROM business b INNER JOIN belongs_to bt ON b.id = bt.business_id WHERE bt.category_name LIKE '%%%s%%' ORDER BY b.stars DESC;",
                     searchText);
-            return BusinessDB.getBusinessesByQuery(query);
           }
         } else {
           String[] cityState = areaSearchText.trim().split(",");
@@ -185,9 +189,6 @@ public class ClientController extends StackPane {
                   .format(
                       "SELECT * FROM business b INNER JOIN postal_code p ON b.postal_code= p.code WHERE p.city LIKE '%%%s%%' AND p.state LIKE '%%%s%%' AND b.name LIKE '%%%s%%' ORDER BY b.stars;"
                       , cityState[0].trim(), cityState[1].trim(), searchText);
-
-              return BusinessDB.getBusinessesByQuery(query);
-
             } else {
               // CASE 4: CATEGORIES w/ AREA
               query = String
@@ -198,14 +199,14 @@ public class ClientController extends StackPane {
 
             }
           }
-          return BusinessDB.getBusinessesByQuery(query);
         }
+        return BusinessDB.getBusinessesByQuery(query);
       }
     };
 
     businessSearchTask.setOnSucceeded(e -> {
       SearchResultsController searchResultsController = new SearchResultsController(searchText,
-          areaSearchText, searchParameter, businessSearchTask.getValue());
+          areaSearchText, searchParameter, businessSearchTask.getValue(), this);
 
       FXMLLoader searchResultsLoader = new FXMLLoader();
       searchResultsLoader.setController(searchResultsController);
