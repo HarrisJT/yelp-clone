@@ -8,9 +8,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0"
-  AnchorPane.leftAnchor="0.0"
-  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="edge-to-edge"
-  xmlns="http://javafx.com/javafx/8.0.121">
+  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+  styleClass="edge-to-edge" xmlns="http://javafx.com/javafx/8.0.121">
   <top>
     <Label BorderPane.alignment="CENTER" text="Search results for:" fx:id="searchResultsLabel">
       <font>
@@ -22,7 +21,7 @@
     </Label>
   </top>
   <center>
-    <TableView BorderPane.alignment="CENTER" fx:id="searchResultsTable">
+    <TableView BorderPane.alignment="TOP_CENTER" fx:id="searchResultsTable">
       <cursor>
         <Cursor fx:constant="HAND"/>
       </cursor>

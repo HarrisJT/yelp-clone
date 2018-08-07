@@ -81,7 +81,7 @@ public class ClientController extends StackPane {
     try {
       loader.load();
       // Load the home screen
-      sceneManager.loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
+      sceneManager.loadAndSwitchToFXML(loader.getController(), "login", anchorPane);
     } catch (IOException ex) {
       logger.log(Level.SEVERE, "", ex);
     }

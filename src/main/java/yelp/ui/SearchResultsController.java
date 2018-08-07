@@ -82,6 +82,9 @@ public class SearchResultsController extends BorderPane {
 
     setResultsTable();
 
+    searchResultsTable
+        .setPrefHeight(anchorPane.getScene().getHeight() - searchResultsLabel.getHeight() - 135);
+
     searchResultsTable.setRowFactory(tv -> {
       TableRow<Business> row = new TableRow<>();
       row.setOnMouseClicked(event -> {

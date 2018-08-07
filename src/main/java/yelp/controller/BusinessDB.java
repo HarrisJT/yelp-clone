@@ -1,6 +1,9 @@
 package yelp.controller;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import yelp.model.Business;
 import yelp.utils.DatabaseManager;
@@ -67,27 +70,5 @@ public class BusinessDB {
     }
 
     return businesses;
-  }
-
-  public static void insertNewReview(String query) {
-    Statement stmt = null;
-    Connection connection = null;
-
-    try {
-      connection = DatabaseManager.getConnection();
-      stmt = connection.createStatement();
-      stmt.executeUpdate(query);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        stmt.close();
-        connection.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-
-    System.out.println("insert successful");
   }
 }

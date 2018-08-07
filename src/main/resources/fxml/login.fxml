@@ -13,13 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" AnchorPane.bottomAnchor="0.0"
-  AnchorPane.leftAnchor="0.0"
-  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" prefHeight="400.0"
-  prefWidth="600.0" xmlns="http://javafx.com/javafx"
-  fx:controller="yelp.ui.LoginController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0"
+  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+  xmlns="http://javafx.com/javafx/8.0.121" fx:controller="yelp.ui.LoginController">
   <children>
-    <GridPane prefHeight="400.0" prefWidth="600.0">
+    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="0.0" prefHeight="400.0" prefWidth="600.0">
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
       </columnConstraints>
@@ -29,29 +28,32 @@
         <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="10.0" vgrow="SOMETIMES"/>
       </rowConstraints>
       <children>
-        <Text layoutX="10.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In"
-          textAlignment="CENTER" wrappingWidth="600.0">
+        <Text GridPane.halignment="CENTER" GridPane.valignment="CENTER" layoutX="10.0"
+          layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log In"
+          textAlignment="CENTER">
           <font>
             <Font size="38.0"/>
           </font>
         </Text>
-        <VBox GridPane.rowIndex="1">
+        <VBox GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+          GridPane.valignment="CENTER" alignment="TOP_CENTER">
           <children>
             <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
               prefHeight="35.0" prefWidth="400.0" promptText="Username" fx:id="usernameText2">
               <VBox.margin>
-                <Insets left="100.0" top="15.0"/>
+                <Insets top="15.0"/>
               </VBox.margin>
             </TextField>
             <PasswordField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
               prefHeight="35.0" prefWidth="400.0" promptText="Password" fx:id="passwordText2">
               <VBox.margin>
-                <Insets left="100.0" top="20.0"/>
+                <Insets top="20.0"/>
               </VBox.margin>
             </PasswordField>
           </children>
         </VBox>
-        <HBox GridPane.rowIndex="2" alignment="CENTER">
+        <HBox GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER"
+          alignment="CENTER">
           <children>
             <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
               prefHeight="50.0" prefWidth="100.0" text="Log In" fx:id="logInButton">
