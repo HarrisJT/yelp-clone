@@ -1,17 +1,22 @@
 package yelp.ui;
 
+import javafx.event.ActionEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Control;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import yelp.controller.BusinessDB;
 import yelp.model.Business;
 import yelp.model.Review;
+
+import javax.swing.*;
 
 public class BusinessController {
 
@@ -31,6 +36,15 @@ public class BusinessController {
 
   @FXML
   private TableView<Review> reviewsTable;
+
+  @FXML
+  private TextField ratingInput;
+
+  @FXML
+  private TextField reviewText;
+
+  @FXML
+  private  TextField votesInput;
 
   private Business business;
 
@@ -106,5 +120,30 @@ public class BusinessController {
     reviewsTable.getColumns().add(tableColumnDate);
     reviewsTable.getColumns().add(tableColumnText);
     reviewsTable.setItems(reviewsObservableList);
+  }
+
+  public void submitReview(ActionEvent e) {
+    String query;
+
+    int rating = Integer.parseInt(ratingInput.getText());
+    String review = reviewText.getText();
+    int votes = Integer.parseInt(votesInput.getText());
+
+    if (rating > 5 || rating < 1 || votes > 5 || votes < 1 || review == null) {
+      return;
+    }
+
+    String uId = UUID.randomUUID().toString().replaceAll("-", "");
+
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    Date date = new Date();
+    String currDate = formatter.format(date);
+
+    query = String.format("INSERT INTO writes_review2 VALUES(%s, %s, %d, '%s', '%s', %d, 0, 0)",
+            uId, business.getId(), rating, currDate, review, votes);
+
+    System.out.println(query);
+
+    BusinessDB.insertNewReview(query);
   }
 }
