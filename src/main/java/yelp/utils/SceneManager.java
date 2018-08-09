@@ -18,6 +18,7 @@ public class SceneManager {
   private Executor threadPool;
 
   public SceneManager() {
+    // Start a new thread pool
     threadPool = Executors.newCachedThreadPool(runnable -> {
       Thread t = new Thread(runnable);
       t.setDaemon(true);
@@ -25,8 +26,14 @@ public class SceneManager {
     });
   }
 
-  public void loadAndSwitchToFXML(Object currentController, String resourceName, Pane root)
-      throws IOException {
+  /**
+   * With the given fxml resource name, load it into the root pane.
+   *
+   * @param currentController calling object's controller
+   * @param resourceName name of fxml file from fxml folder in resources
+   * @param root the root pane
+   */
+  public void loadAndSwitchToFXML(Object currentController, String resourceName, Pane root) {
     Task<Pane> jfxTask = new Task<Pane>() {
       @Override
       protected Pane call() throws IOException {
@@ -37,6 +44,7 @@ public class SceneManager {
       }
     };
 
+    // On success or failure, clear the root pane first. (needs to be on ui thread)
     jfxTask.setOnSucceeded(event -> {
       root.getChildren().clear();
       root.getChildren().add(jfxTask.getValue());
@@ -50,38 +58,5 @@ public class SceneManager {
 
     threadPool.execute(jfxTask);
   }
-
-//  public void displayLoadingBar(Object currentController, String resourceName, Pane root) {
-//    StackPane stack = new StackPane();
-//
-//    ProgressBar indicator = new ProgressBar();
-//    indicator.setPrefWidth(350);
-//    indicator.setVisible(false);
-//
-//    Label label = new Label();
-//    label.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-//    label.setAlignment(Pos.CENTER);
-//    label.setStyle("-fx-font-weight:bold; -fx-text-fill: #202020; -fx-font-size:10;");
-//    label.setText("Loading...");
-//
-//    stack.getChildren().addAll(indicator, label);
-//    stack.setManaged(false);
-//    stack.setVisible(false);
-//
-//    indicator.visibleProperty().addListener(e -> {
-//      if (indicator.isVisible()) {
-//        stack.setManaged(true);
-//        stack.setVisible(true);
-//      } else {
-//        stack.setManaged(false);
-//        stack.setVisible(false);
-//      }
-//    });
-//
-//    // doesn't currently do anything as it centers to a frame as big as itself.
-//    stack.setAlignment(Pos.CENTER);
-//    root.getChildren().add(stack);
-//  }
-
 
 }

@@ -1,4 +1,4 @@
-package yelp.ui;
+package yelp.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-import yelp.controller.ReviewDB;
+import yelp.database.ReviewDB;
 import yelp.model.Business;
 import yelp.model.Review;
 
@@ -64,36 +64,46 @@ public class BusinessController {
   public void initialize() {
     submitReviewButton.setOnAction(a -> submitReview());
 
-    setBusinessDisplay(business);
-    setReviewTable(reviews);
+    setBusinessDisplay();
+    setReviewTable();
   }
 
-  public void setBusinessDisplay(Business business) {
-    businessName.setText(business.getName());
-    rating.setText(String.valueOf(business.getStars()));
-    address.setText(business.getAddress());
+  /**
+   * Sets up the business information in the FXML frame
+   */
+  private void setBusinessDisplay() {
+    Business currentBusiness = this.business;
+    businessName.setText(currentBusiness.getName());
+    rating.setText(String.valueOf(currentBusiness.getStars()));
+    address.setText(currentBusiness.getAddress());
 
     String openTime = String.format("MON: %s - %s\n" +
             "TUE: %s - %s\n" +
             "WED: %s - %s\n" +
             "THU: %s - %s\n",
-        business.getMonday_open().toString(), business.getMonday_close().toString(),
-        business.getTuesday_open().toString(), business.getTuesday_close().toString(),
-        business.getWednesday_open().toString(), business.getWednesday_close().toString(),
-        business.getThursday_open().toString(), business.getThursday_close().toString());
+        currentBusiness.getMonday_open().toString(), currentBusiness.getMonday_close().toString(),
+        currentBusiness.getTuesday_open().toString(), currentBusiness.getTuesday_close().toString(),
+        currentBusiness.getWednesday_open().toString(),
+        currentBusiness.getWednesday_close().toString(),
+        currentBusiness.getThursday_open().toString(),
+        currentBusiness.getThursday_close().toString());
 
     String weekendOpenTime = String.format("FRI: %s - %s\n" +
             "SAT: %s - %s\n" +
-            "SUN: %s - %s\n", business.getFriday_open().toString(),
-        business.getFriday_close().toString(),
-        business.getSaturday_open().toString(), business.getSaturday_close().toString(),
-        business.getSunday_open().toString(), business.getSunday_close().toString());
+            "SUN: %s - %s\n", currentBusiness.getFriday_open().toString(),
+        currentBusiness.getFriday_close().toString(),
+        currentBusiness.getSaturday_open().toString(),
+        currentBusiness.getSaturday_close().toString(),
+        currentBusiness.getSunday_open().toString(), currentBusiness.getSunday_close().toString());
 
     hours.setText(openTime);
     weekendHours.setText(weekendOpenTime);
   }
 
-  public void setReviewTable(ArrayList<Review> reviews) {
+  /**
+   * Sets up the business information in the FXML frame
+   */
+  private void setReviewTable() {
     // Votes column
     TableColumn<Review, Integer> tableColumnVotes = new TableColumn<>("Votes");
     tableColumnVotes.setCellValueFactory(new PropertyValueFactory<>("votes"));
@@ -125,7 +135,7 @@ public class BusinessController {
 
     ObservableList<Review> reviewsObservableList = FXCollections.observableArrayList();
 
-    reviewsObservableList.addAll(reviews);
+    reviewsObservableList.addAll(this.reviews);
 
     reviewsTable.getColumns().add(tableColumnVotes);
     reviewsTable.getColumns().add(tableColumnRating);
@@ -134,7 +144,10 @@ public class BusinessController {
     reviewsTable.setItems(reviewsObservableList);
   }
 
-  public void submitReview() {
+  /**
+   * Called when a new review is submitted.
+   */
+  private void submitReview() {
     String query;
 
     Double rating = Double.parseDouble(ratingTextField.getText());
@@ -146,6 +159,7 @@ public class BusinessController {
     Date date = new Date();
     String currDate = formatter.format(date);
 
+    // Gives 0 to all the "vote" parameters
     query = String
         .format("INSERT INTO writes_review2 VALUES('%s', '%s', %f, '%s', '%s', 0, 0, 0);", uId,
             business.getId(), rating, currDate, review);

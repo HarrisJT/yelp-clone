@@ -1,4 +1,4 @@
-package yelp.controller;
+package yelp.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,6 @@ public class ReviewDB {
    * @param query pattern to match user's names
    * @return result of query
    */
-
   public static ArrayList<Review> getReviews(String query) {
     ArrayList<Review> reviews = new ArrayList<>();
 
@@ -55,6 +54,11 @@ public class ReviewDB {
     return reviews;
   }
 
+  /**
+   * Given a query, execute it on the server
+   *
+   * @param query the new review query.
+   */
   public static void insertNewReview(String query) {
     Statement stmt = null;
     Connection connection = null;
@@ -73,7 +77,5 @@ public class ReviewDB {
         e.printStackTrace();
       }
     }
-
-    System.out.println("insert successful");
   }
 }

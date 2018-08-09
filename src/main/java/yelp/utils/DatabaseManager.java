@@ -11,12 +11,10 @@ import javax.sql.DataSource;
 
 public class DatabaseManager {
 
-  // private static final String connectionString = "jdbc:mysql://localhost:3306/revidi?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&relaxAutoCommit=true";
   private static final String connectionString = "jdbc:mysql://159.65.76.14:3306/revidi";
   private static final String username = "root";
   private static final String password = "175d2d6cdeccdc088998b6b16cab40476e5fcbce414b4620";
   private static DataSource dataSource;
-
 
   /*
     Setup the database
@@ -29,12 +27,10 @@ public class DatabaseManager {
 
     // Required
     config.addDataSourceProperty("autoReconnect", "true");
-    //config.addDataSourceProperty("useUnicode", "true");
-    //config.addDataSourceProperty("characterEncoding", "UTF-8");
     config.addDataSourceProperty("allowMultiQueries", "true");
     config.addDataSourceProperty("useSSL", "false");
 
-    // Optimization
+    // Optimization (from HikariCP wiki)
     config.addDataSourceProperty("cachePrepStmts", "true");
     config.addDataSourceProperty("prepStmtCacheSize", "250");
     config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
@@ -49,16 +45,12 @@ public class DatabaseManager {
     dataSource = new HikariDataSource(config);
   }
 
-  public static DataSource getDataSource() {
-    return dataSource;
-  }
-
   public static Connection getConnection() throws SQLException {
     return dataSource.getConnection();
   }
 
   /**
-   * Closes all database connection Should only be called after operations done
+   * Closes all database connections
    *
    * @param ps PreparedStatement
    * @param rs ResultSet

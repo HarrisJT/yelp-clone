@@ -1,4 +1,4 @@
-package yelp.ui;
+package yelp.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,10 +18,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import yelp.controller.ReviewDB;
+import yelp.database.ReviewDB;
 import yelp.model.Business;
 import yelp.model.Review;
-import yelp.utils.SceneManager;
 
 public class SearchResultsController extends BorderPane {
 
@@ -29,8 +28,6 @@ public class SearchResultsController extends BorderPane {
    * The logger.
    */
   private final Logger logger = Logger.getLogger(getClass().getName());
-
-  private SceneManager sceneManager;
 
   private Executor threadPool;
 
@@ -57,7 +54,6 @@ public class SearchResultsController extends BorderPane {
     this.searchParameter = searchParameter;
     this.anchorPane = clientController.getAnchorPane();
     this.threadPool = clientController.getThreadPool();
-    this.sceneManager = clientController.getSceneManager();
   }
 
   @FXML

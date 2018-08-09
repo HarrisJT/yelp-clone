@@ -11,7 +11,8 @@ public class Review {
   private Date reviewDate;
   private int votes;
 
-  public Review(){}
+  public Review() {
+  }
 
   public Review(String userId, String businessId, String text, int rating, Date reviewDate,
       int votes) {

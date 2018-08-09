@@ -1,10 +1,13 @@
-package yelp.controller;
+package yelp.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import yelp.utils.DatabaseManager;
 
+/**
+ * UNUSED User database database
+ */
 public class UserDB {
 
   /**
@@ -30,7 +33,7 @@ public class UserDB {
   /**
    * Insert new user into the table
    *
-   * @param id, name, startDate TODO: add password attribute?
+   * @param id, name, startDate
    */
   public void addUser(String id, String name, String startDate) {
     String addUser = String

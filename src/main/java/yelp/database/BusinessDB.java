@@ -1,4 +1,4 @@
-package yelp.controller;
+package yelp.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

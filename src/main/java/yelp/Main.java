@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import yelp.ui.ClientController;
+import yelp.controller.ClientController;
 
 public class Main extends Application {
 

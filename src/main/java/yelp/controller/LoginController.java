@@ -1,7 +1,5 @@
-package yelp.ui;
+package yelp.controller;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -10,10 +8,6 @@ import yelp.utils.SceneManager;
 
 public class LoginController {
 
-  /**
-   * The logger.
-   */
-  private final Logger logger = Logger.getLogger(getClass().getName());
 
   private FXMLLoader loader;
   private SceneManager sceneManager = null;
@@ -31,6 +25,5 @@ public class LoginController {
 
 
   public LoginController() {
-    logger.log(Level.INFO, "LoginController Constructed");
   }
 }

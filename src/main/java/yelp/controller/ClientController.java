@@ -1,4 +1,4 @@
-package yelp.ui;
+package yelp.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import yelp.controller.BusinessDB;
+import yelp.database.BusinessDB;
 import yelp.model.Business;
 import yelp.utils.SceneManager;
 
@@ -120,27 +120,15 @@ public class ClientController extends StackPane {
 
     // Home Button
     homeButton.setOnAction(a -> {
-      try {
-        sceneManager.loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      sceneManager.loadAndSwitchToFXML(loader.getController(), "home", anchorPane);
     });
 
     // Account Settings Menu
     menuLoginButton.setOnAction(a -> {
-      try {
-        sceneManager.loadAndSwitchToFXML(loader.getController(), "login", anchorPane);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      sceneManager.loadAndSwitchToFXML(loader.getController(), "login", anchorPane);
     });
     menuSignUpButton.setOnAction(a -> {
-      try {
-        sceneManager.loadAndSwitchToFXML(loader.getController(), "signUp", anchorPane);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      sceneManager.loadAndSwitchToFXML(loader.getController(), "signUp", anchorPane);
     });
   }
 
@@ -150,10 +138,6 @@ public class ClientController extends StackPane {
 
   public AnchorPane getAnchorPane() {
     return this.anchorPane;
-  }
-
-  public SceneManager getSceneManager() {
-    return this.sceneManager;
   }
 
   private void loadResults(final String searchText, final String areaSearchText,
@@ -204,6 +188,7 @@ public class ClientController extends StackPane {
       }
     };
 
+    // On success, start a new searchResults pane with the retrieved information and load it
     businessSearchTask.setOnSucceeded(e -> {
       SearchResultsController searchResultsController = new SearchResultsController(searchText,
           areaSearchText, searchParameter, businessSearchTask.getValue(), this);
